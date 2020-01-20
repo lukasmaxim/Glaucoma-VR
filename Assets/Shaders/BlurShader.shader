@@ -69,6 +69,11 @@
 
 			// the fragment shader
 			fixed4 frag(v2f i) : SV_TARGET{
+
+				// abort if pixel is totally black in mask
+				if(tex2D(_Mask, i.uv).a == 0)
+					return tex2D(_MainTex, i.uv);
+
 				#if GAUSS
 					// failsafe so we can use turn off the blur by setting the deviation to 0
 					if(_StandardDeviation == 0)
@@ -168,6 +173,11 @@
 
 			// the fragment shader
 			fixed4 frag(v2f i) : SV_TARGET{
+
+				// abort if pixel is totally black in mask
+				if(tex2D(_Mask, i.uv).a == 0)
+					return tex2D(_MainTex, i.uv);
+
 				#if GAUSS
 					// failsafe so we can use turn off the blur by setting the deviation to 0
 					if(_StandardDeviation == 0)
