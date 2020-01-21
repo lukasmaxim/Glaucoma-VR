@@ -54,8 +54,15 @@
 			fixed4 frag(v2f i) : SV_TARGET{
 
 				half4 maskValue = tex2D(_Mask, i.uv);
+				half4 mainTexValue = tex2D(_MainTex, i.uv);
 
-				return maskValue;
+				if(unity_StereoEyeIndex == 0){
+					return maskValue;
+				}
+				if(unity_StereoEyeIndex == 1){
+					return mainTexValue;
+				}
+				return mainTexValue;
 			}
 
 			ENDCG
