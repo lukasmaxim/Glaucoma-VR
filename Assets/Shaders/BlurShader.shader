@@ -2,7 +2,8 @@
 	//show values to edit in inspector
 	Properties{
 		[HideInInspector]_MainTex ("Texture", 2D) = "white" {}
-		_Mask ("Blur Mask", 2D) = "white" {}
+		_MaskLeft ("Blur Mask Left Eye", 2D) = "white" {}
+		_MaskRight ("Blur Mask Right Eye", 2D) = "white" {}
 		_BlurSize("Blur Size", Range(0,0.5)) = 0
 		[KeywordEnum(Low, Medium, High)] _Samples ("Sample amount", Float) = 0
 		[Toggle(GAUSS)] _Gauss ("Gaussian Blur", float) = 0
@@ -31,7 +32,8 @@
 
 			// texture and transforms of the texture
 			sampler2D _MainTex;
-			sampler2D _Mask;
+			sampler2D _MaskLeft;
+			sampler2D _MaskRight;
 			float _BlurSize;
 			float _StandardDeviation;
 
@@ -70,9 +72,10 @@
 			// the fragment shader
 			fixed4 frag(v2f i) : SV_TARGET{
 
+				// POSSIBLE OPTIMIZATION: abort if pixel in mask is black or close to
 				// abort if pixel is totally black in mask
-				if(tex2D(_Mask, i.uv).a == 0)
-					return tex2D(_MainTex, i.uv);
+				// if(tex2D(_Mask, i.uv).a == 0)
+				//	return tex2D(_MainTex, i.uv);
 
 				#if GAUSS
 					// failsafe so we can use turn off the blur by setting the deviation to 0
@@ -108,13 +111,18 @@
 
 				// get color pixel in rendered image and mask texture
 				half4 originalColor = tex2D(_MainTex, i.uv);
-				half4 maskColor = tex2D(_Mask, i.uv);
+				half4 maskColorLeft = tex2D(_MaskLeft, i.uv);
+				half4 maskColorRight = tex2D(_MaskRight, i.uv);
 
 				// divide the sum of values by the amount of samples
 				col = col / sum;
 
-				// interpolate between original pixel color and blur color by factor of the mask pixel's alpha
-				return lerp(originalColor, col, maskColor.a);
+				// interpolate between original pixel color and blur color by factor of the mask pixel's alpha and apply to the respective eye
+				if(unity_StereoEyeIndex == 0) {
+					return lerp(originalColor, col, maskColorLeft.a);
+				} else {
+					return lerp(originalColor, col, maskColorRight.a);
+				}
 			}
 
 			ENDCG
@@ -135,7 +143,8 @@
 
 			// texture and transforms of the texture
 			sampler2D _MainTex;
-			sampler2D _Mask;
+			sampler2D _MaskLeft;
+			sampler2D _MaskRight;
 			float _BlurSize;
 			float _StandardDeviation;
 
@@ -174,9 +183,10 @@
 			// the fragment shader
 			fixed4 frag(v2f i) : SV_TARGET{
 
+				// POSSIBLE OPTIMIZATION: abort if pixel in mask is black or close to
 				// abort if pixel is totally black in mask
-				if(tex2D(_Mask, i.uv).a == 0)
-					return tex2D(_MainTex, i.uv);
+				// if(tex2D(_Mask, i.uv).a == 0)
+				//	return tex2D(_MainTex, i.uv);
 
 				#if GAUSS
 					// failsafe so we can use turn off the blur by setting the deviation to 0
@@ -212,12 +222,20 @@
 					#endif
 				}
 
+				// get color pixel in rendered image and mask texture
 				half4 originalColor = tex2D(_MainTex, i.uv);
-				half4 maskColor = tex2D(_Mask, i.uv);
+				half4 maskColorLeft = tex2D(_MaskLeft, i.uv);
+				half4 maskColorRight = tex2D(_MaskRight, i.uv);
 
 				// divide the sum of values by the amount of samples
 				col = col / sum;
-				return lerp(originalColor, col, maskColor.a);
+
+				// interpolate between original pixel color and blur color by factor of the mask pixel's alpha and apply to the respective eye
+				if(unity_StereoEyeIndex == 0) {
+					return lerp(originalColor, col, maskColorLeft.a);
+				} else {
+					return lerp(originalColor, col, maskColorRight.a);
+				}
 			}
 
 			ENDCG
