@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [ExecuteInEditMode]
-public class PostprocessingDebug : MonoBehaviour
+public class PostprocessingMaskCoverage : MonoBehaviour
 {
     // material that's applied when doing postprocessing
     [SerializeField]

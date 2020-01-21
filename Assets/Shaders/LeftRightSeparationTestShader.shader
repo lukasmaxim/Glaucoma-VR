@@ -1,4 +1,4 @@
-﻿Shader "Unlit/SolidColorOverlayShader"{
+﻿Shader "Unlit/LeftRightSeparationTestShader"{
 	//show values to edit in inspector
 	Properties{
 		[HideInInspector]_MainTex ("Texture", 2D) = "white" {}
@@ -56,13 +56,12 @@
 				half4 maskValue = tex2D(_Mask, i.uv);
 				half4 mainTexValue = tex2D(_MainTex, i.uv);
 
+				// if left eye, show test texture, otherwise show unaltered texture
 				if(unity_StereoEyeIndex == 0){
 					return maskValue;
-				}
-				if(unity_StereoEyeIndex == 1){
+				} else {
 					return mainTexValue;
 				}
-				return mainTexValue;
 			}
 
 			ENDCG

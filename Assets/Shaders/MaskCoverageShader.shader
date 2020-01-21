@@ -1,9 +1,11 @@
-﻿Shader "Unlit/CoverageShader"{
+﻿Shader "Unlit/MaskCoverageShader"{
 	//show values to edit in inspector
 	Properties{
 		[HideInInspector]_MainTex ("Texture", 2D) = "white" {}
-		_Mask ("Blur Mask", 2D) = "white" {}
-		_MaskColor ("Mask Color", Color) = (1,1,0,1)
+		_MaskLeft ("Blur Mask Left Eye", 2D) = "white" {}
+		_MaskRight ("Blur Mask Right Eye", 2D) = "white" {}
+		_MaskColorLeft ("Mask Color Left Eye", Color) = (1,1,0,1)
+		_MaskColorRight ("Mask Color Right Eye", Color) = (0,1,1,1)
 	}
 
 	SubShader{
@@ -27,8 +29,10 @@
 
 			// texture and transforms of the texture
 			sampler2D _MainTex;
-			sampler2D _Mask;
-			fixed4 _MaskColor;
+			sampler2D _MaskLeft;
+			sampler2D _MaskRight;
+			fixed4 _MaskColorLeft;
+			fixed4 _MaskColorRight;
 
 			// the object data that's put into the vertex shader
 			struct appdata{
@@ -55,9 +59,15 @@
 			fixed4 frag(v2f i) : SV_TARGET{
 
 				half4 originalColor = tex2D(_MainTex, i.uv);
-				half4 maskValue = tex2D(_Mask, i.uv);
 
-				return lerp(originalColor, _MaskColor, maskValue.a);
+				// check for left / right eye rendering and lerp between original rendered texture and mask color with an alpha of the respective left / right texture
+				if(unity_StereoEyeIndex == 0) {
+					half4 maskValue = tex2D(_MaskLeft, i.uv);
+					return lerp(originalColor, _MaskColorLeft, maskValue.a);
+				} else {
+					half4 maskValue = tex2D(_MaskRight, i.uv);
+					return lerp(originalColor, _MaskColorRight, maskValue.a);
+				}
 			}
 
 			ENDCG

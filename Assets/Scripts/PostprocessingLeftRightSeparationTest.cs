@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [ExecuteInEditMode]
-public class PostprocessingSolidColorOverlay : MonoBehaviour
+public class PostprocessingLeftRightSeparationTest : MonoBehaviour
 {
     // material that's applied when doing postprocessing
     [SerializeField]
