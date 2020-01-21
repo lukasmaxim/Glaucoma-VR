@@ -5,7 +5,7 @@
 		_MaskLeft ("Blur Mask Left Eye", 2D) = "white" {}
 		_MaskRight ("Blur Mask Right Eye", 2D) = "white" {}
 		_BlurSize("Blur Size", Range(0,0.5)) = 0
-		[KeywordEnum(Low, Medium, High, Very High)] _Samples ("Sample amount", Float) = 0
+		[KeywordEnum(Low, Medium, High)] _Samples ("Sample amount", Float) = 0
 		[Toggle(GAUSS)] _Gauss ("Gaussian Blur", float) = 0
 		[PowerSlider(3)]_StandardDeviation("Standard Deviation (Gauss only)", Range(0.00, 0.3)) = 0.02
 	}
@@ -27,7 +27,7 @@
 			#pragma vertex vert
 			#pragma fragment frag
 
-			#pragma multi_compile _SAMPLES_LOW _SAMPLES_MEDIUM _SAMPLES_HIGH _SAMPLES_VERY_HIGH
+			#pragma multi_compile _SAMPLES_LOW _SAMPLES_MEDIUM _SAMPLES_HIGH
 			#pragma shader_feature GAUSS
 
 			// texture and transforms of the texture
@@ -44,10 +44,8 @@
 				#define SAMPLES 10
 			#elif _SAMPLES_MEDIUM
 				#define SAMPLES 30
-			#elif _SAMPLES_HIGH
-				#define SAMPLES 100
 			#else
-				#define SAMPLES 200
+				#define SAMPLES 100
 			#endif
 
 			// the object data that's put into the vertex shader
@@ -136,7 +134,7 @@
 			// include useful shader functions
 			#include "UnityCG.cginc"
 
-			#pragma multi_compile _SAMPLES_LOW _SAMPLES_MEDIUM _SAMPLES_HIGH _SAMPLES_VERY_HIGH
+			#pragma multi_compile _SAMPLES_LOW _SAMPLES_MEDIUM _SAMPLES_HIGH
 			#pragma shader_feature GAUSS
 
 			// define vertex and fragment shader
@@ -157,10 +155,8 @@
 				#define SAMPLES 10
 			#elif _SAMPLES_MEDIUM
 				#define SAMPLES 30
-			#elif _SAMPLES_HIGH
-				#define SAMPLES 100
 			#else
-				#define SAMPLES 200
+				#define SAMPLES 100
 			#endif
 
 			// the object data that's put into the vertex shader
