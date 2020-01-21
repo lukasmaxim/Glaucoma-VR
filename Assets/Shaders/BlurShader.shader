@@ -27,7 +27,7 @@
 			#pragma vertex vert
 			#pragma fragment frag
 
-			#pragma multi_compile _SAMPLES_LOW _SAMPLES_MEDIUM _SAMPLES_HIGH
+			#pragma multi_compile _SAMPLES_LOW _SAMPLES_MEDIUM _SAMPLES_HIGH _SAMPLES_VERY_HIGH
 			#pragma shader_feature GAUSS
 
 			// texture and transforms of the texture
@@ -136,7 +136,7 @@
 			// include useful shader functions
 			#include "UnityCG.cginc"
 
-			#pragma multi_compile _SAMPLES_LOW _SAMPLES_MEDIUM _SAMPLES_HIGH
+			#pragma multi_compile _SAMPLES_LOW _SAMPLES_MEDIUM _SAMPLES_HIGH _SAMPLES_VERY_HIGH
 			#pragma shader_feature GAUSS
 
 			// define vertex and fragment shader
