@@ -6,14 +6,18 @@ public class Postprocessing : MonoBehaviour
 {
     // material that's applied when doing postprocessing
     [SerializeField]
-    private Material postprocessMaterial;
+    Material postprocessMaterial;
+	[SerializeField]
+	string leftEyeFileName, rightEyeFileName;
 
+	// set left and right eye texture on awakening
     void Awake()
     {
         MaskGenerator maskGenerator = new MaskGenerator();
-        maskGenerator.Generate();
-		Texture2D texture = LoadPNG(Application.dataPath + "/Textures/mask.png");	
-        postprocessMaterial.SetTexture("_MaskLeft", texture);
+        Texture2D textureLeftEye = maskGenerator.Generate(leftEyeFileName);
+        Texture2D textureRightEye = maskGenerator.Generate(rightEyeFileName);
+        postprocessMaterial.SetTexture("_MaskLeft", textureLeftEye);
+        postprocessMaterial.SetTexture("_MaskRight", textureRightEye);
     }
 
     // method which is automatically called by unity after the camera is done rendering
@@ -24,19 +28,5 @@ public class Postprocessing : MonoBehaviour
         Graphics.Blit(source, temporaryTexture, postprocessMaterial, 0);
         Graphics.Blit(temporaryTexture, destination, postprocessMaterial, 1);
         RenderTexture.ReleaseTemporary(temporaryTexture);
-    }
-
-    Texture2D LoadPNG(string filePath)
-    {
-        Texture2D tex = null;
-        byte[] fileData;
-
-        if (File.Exists(filePath))
-        {
-            fileData = File.ReadAllBytes(filePath);
-            tex = new Texture2D(2, 2);
-            tex.LoadImage(fileData); //..this will auto-resize the texture dimensions.
-        }
-        return tex;
     }
 }

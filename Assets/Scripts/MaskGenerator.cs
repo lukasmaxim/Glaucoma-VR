@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class MaskGenerator : MonoBehaviour
+public class MaskGenerator
 {
     string inputPath = Application.dataPath + "/Textures/";
     int[,] input = new int[10, 10];
@@ -13,22 +13,22 @@ public class MaskGenerator : MonoBehaviour
     Texture2D blurMask;
     int dimension = 512;
 
-    public void Generate()
+    public Texture2D Generate(string fileName)
     {
-        ReadFile();
+        ReadFile(fileName);
         InvertValues();
         GenerateTexture();
         ResizeTexture();
-        SaveTexture();
+        return blurMask;
     }
 
     // reads a .txt file with csv data
-    void ReadFile()
+    void ReadFile(string fileName)
     {
-        StreamReader file = new StreamReader(inputPath + "sample.txt");
+        StreamReader file = new StreamReader(inputPath + fileName);
         int i = 0;
         String line = String.Empty;
-        
+
         while((line = file.ReadLine()) != null)
         {
             String[] values = line.Split(',');
@@ -53,25 +53,27 @@ public class MaskGenerator : MonoBehaviour
         }
     }
 
-    // creates a texture from the inverted input and maps the values on a scale from black (good vision) to white (bad vision)
+    // creates a texture from the inverted input and maps the values to the alpha channel
     void GenerateTexture()
     {
         for (int i = 0; i < blurMask.width; i++)
         {
             for (int j = 0; j < blurMask.height; j++)
             {
-                float scaledColorChannelValue = (float) invertedInput[i, j] / highestValue;
-                Color color = new Color(scaledColorChannelValue, scaledColorChannelValue, scaledColorChannelValue, 1);
+                float alpha = (float) invertedInput[i, j] / highestValue;
+                Color color = new Color(1, 1, 1, alpha);
                 blurMask.SetPixel(i, blurMask.height - j - 1, color);
             }
         }
     }
 
+    // scales the image to specified dimensions
     void ResizeTexture()
     {
         TextureScale.Bilinear(blurMask, dimension, dimension);
     }
 
+    // OBSOLETE ?
     void SaveTexture()
     {
         string path = Application.dataPath + "/Textures/";
