@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class GenerateMaskFromCsv : MonoBehaviour
+public class MaskGenerator : MonoBehaviour
 {
     StreamReader file = new StreamReader("/Users/lukasmasopust/Projects/Glaucoma VR/Assets/Textures/sample.txt");
     int[,] input = new int[10, 10];
@@ -13,7 +13,7 @@ public class GenerateMaskFromCsv : MonoBehaviour
     Texture2D blurMask;
     int dimension = 512;
 
-    void Start()
+    public void Generate()
     {
         ReadFile();
         InvertValues();
