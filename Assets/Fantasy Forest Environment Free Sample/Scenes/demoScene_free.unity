@@ -183,19 +183,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1925457168}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &206221776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 206221775}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e757dc8256804cec9cf6594a1431d6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  postprocessMaterial: {fileID: 2100000, guid: e2ad9e652d0a94127a8e294eb740f01d, type: 2}
 --- !u!20 &206221777 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 2037080, guid: 126d619cf4daa52469682f85c1378b4a,
@@ -228,21 +215,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   postprocessMaterial: {fileID: 2100000, guid: daabfbc16bcf54ee39afb7df09624b42, type: 2}
+  fromCSV: 0
   leftEyeFileName: SamplePatient1/patient1_2003_left
   rightEyeFileName: SamplePatient1/patient1_2003_right
---- !u!114 &206221781
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 206221775}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d7077b5db2c248558fce0224fe716a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  postprocessMaterial: {fileID: 2100000, guid: e8a1a5b6140fb46ddaf7049826d18209, type: 2}
+  textureLeftEye: {fileID: 2800000, guid: e4fb005bcf11d4396bbcb212a4be92c7, type: 3}
+  textureRightEye: {fileID: 2800000, guid: e4fb005bcf11d4396bbcb212a4be92c7, type: 3}
 --- !u!1 &227186917 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1339950626120150, guid: 9623e1c09606a01498f200718f0f607d,
@@ -262,21 +239,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   postprocessMaterial: {fileID: 2100000, guid: daabfbc16bcf54ee39afb7df09624b42, type: 2}
-  leftEyeFileName: 
-  rightEyeFileName: 
---- !u!114 &227186920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 227186917}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b7e0a769c1b848f0a202f89c3ba44d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  postprocessMaterial: {fileID: 2100000, guid: 27aade52b58d540d49acfc6a82e87925, type: 2}
+  fromCSV: 0
+  leftEyeFileName: SamplePatient1/patient1_2003_left.txt
+  rightEyeFileName: SamplePatient1/patient1_2003_right.txt
+  textureLeftEye: {fileID: 2800000, guid: e4fb005bcf11d4396bbcb212a4be92c7, type: 3}
+  textureRightEye: {fileID: 2800000, guid: e4fb005bcf11d4396bbcb212a4be92c7, type: 3}
 --- !u!1 &370295285
 GameObject:
   m_ObjectHideFlags: 0
@@ -1028,7 +995,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1089,7 +1056,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1121419207030402, guid: 9623e1c09606a01498f200718f0f607d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4665875853779370, guid: 9623e1c09606a01498f200718f0f607d, type: 3}
       propertyPath: m_LocalPosition.x

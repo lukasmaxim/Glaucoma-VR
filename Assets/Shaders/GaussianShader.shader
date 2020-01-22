@@ -1,9 +1,9 @@
-﻿Shader "Unlit/BlurShader"{
+﻿Shader "Unlit/GaussianShader"{
 	//show values to edit in inspector
 	Properties{
 		[HideInInspector]_MainTex ("Texture", 2D) = "white" {}
-		_MaskLeft ("Blur Mask Left Eye", 2D) = "white" {}
-		_MaskRight ("Blur Mask Right Eye", 2D) = "white" {}
+		[HideInInspector]_MaskLeft ("Blur Mask Left Eye", 2D) = "white" {}
+		[HideInInspector]_MaskRight ("Blur Mask Right Eye", 2D) = "white" {}
 		_BlurSize("Blur Size", Range(0,0.5)) = 0
 		[KeywordEnum(Low, Medium, High)] _Samples ("Sample amount", Float) = 0
 		[Toggle(GAUSS)] _Gauss ("Gaussian Blur", float) = 0
