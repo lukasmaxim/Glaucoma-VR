@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class MaskGenerator : MonoBehaviour
 {
-    string inputPath = Application.dataPath;
+    string inputPath = Application.dataPath + "/Textures/";
     int[,] input = new int[10, 10];
     int[,] invertedInput = new int[10, 10];
     int highestValue = 33;

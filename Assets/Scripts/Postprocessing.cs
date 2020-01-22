@@ -12,7 +12,7 @@ public class Postprocessing : MonoBehaviour
     {
         MaskGenerator maskGenerator = new MaskGenerator();
         maskGenerator.Generate();
-		Texture2D texture = LoadPNG(Application.dataPath + "/Textures/mask.png");		
+		Texture2D texture = LoadPNG(Application.dataPath + "/Textures/mask.png");	
         postprocessMaterial.SetTexture("_MaskLeft", texture);
     }
 
