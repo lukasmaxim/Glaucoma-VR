@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class MaskGenerator
 {
-    string inputPath = Application.dataPath + "/Textures/";
+    string inputPath = Application.dataPath + "/PatientData/";
     int[,] input = new int[10, 10];
     int[,] invertedInput = new int[10, 10];
     int highestValue = 33;

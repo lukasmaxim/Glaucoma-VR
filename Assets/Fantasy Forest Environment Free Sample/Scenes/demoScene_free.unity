@@ -228,8 +228,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   postprocessMaterial: {fileID: 2100000, guid: daabfbc16bcf54ee39afb7df09624b42, type: 2}
-  leftEyeFileName: sample.txt
-  rightEyeFileName: sample.txt
+  leftEyeFileName: SamplePatient1/patient1_2003_left
+  rightEyeFileName: SamplePatient1/patient1_2003_right
 --- !u!114 &206221781
 MonoBehaviour:
   m_ObjectHideFlags: 0
