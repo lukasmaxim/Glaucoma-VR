@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class MaskGenerator : MonoBehaviour
 {
-    StreamReader file = new StreamReader("/Users/lukasmasopust/Projects/Glaucoma VR/Assets/Textures/sample.txt");
+    string inputPath = Application.dataPath;
     int[,] input = new int[10, 10];
     int[,] invertedInput = new int[10, 10];
     int highestValue = 33;
@@ -25,8 +25,10 @@ public class MaskGenerator : MonoBehaviour
     // reads a .txt file with csv data
     void ReadFile()
     {
+        StreamReader file = new StreamReader(inputPath + "sample.txt");
         int i = 0;
         String line = String.Empty;
+        
         while((line = file.ReadLine()) != null)
         {
             String[] values = line.Split(',');
