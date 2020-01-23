@@ -226,7 +226,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2029098788}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &227186919
+--- !u!114 &227186918
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -234,6 +234,24 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 227186917}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27202e9cac1db4660bcd924f069a5415, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  postprocessMaterial: {fileID: 2100000, guid: 3b663eead6eb34ed1ba5f3a6a77945dc, type: 2}
+  fromCSV: 0
+  leftEyeFileName: 
+  rightEyeFileName: 
+  textureLeftEye: {fileID: 0}
+  textureRightEye: {fileID: 0}
+--- !u!114 &227186919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 227186917}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc7d57552bd4b421f8af38397d06a269, type: 3}
   m_Name: 
