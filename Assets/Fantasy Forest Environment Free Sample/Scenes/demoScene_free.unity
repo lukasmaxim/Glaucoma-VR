@@ -183,6 +183,24 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1925457168}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &206221776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206221775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27202e9cac1db4660bcd924f069a5415, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  postprocessMaterial: {fileID: 2100000, guid: daabfbc16bcf54ee39afb7df09624b42, type: 2}
+  fromCSV: 0
+  leftEyeFileName: 
+  rightEyeFileName: 
+  textureLeftEye: {fileID: 0}
+  textureRightEye: {fileID: 0}
 --- !u!20 &206221777 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 2037080, guid: 126d619cf4daa52469682f85c1378b4a,
@@ -251,7 +269,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 227186917}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc7d57552bd4b421f8af38397d06a269, type: 3}
   m_Name: 
