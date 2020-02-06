@@ -97,4 +97,5 @@ crashlytics-build.properties
 
 # End of https://www.gitignore.io/api/unity,macos
 
-/Assets/Videos/
+/Assets/Videos/*
+!/Assets/Videos/.gitkeep
