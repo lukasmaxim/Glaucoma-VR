@@ -12,20 +12,26 @@ public class MaskGenerator
     int highestValue = 33;
     Texture2D blurMask;
     int dimension = 512;
+    string filePath = null;
 
-    public Texture2D Generate(string fileName)
+    public Texture2D Generate(string filePath, bool save)
     {
-        ReadFile(fileName);
+        Debug.Log("Generating mask.");
+        this.filePath = filePath;
+        ReadFile();
         InvertValues();
         GenerateTexture();
         ResizeTexture();
+        if(save) {
+            SaveTexture();
+        }
         return blurMask;
     }
 
     // reads a .txt file with csv data
-    void ReadFile(string fileName)
+    void ReadFile()
     {
-        StreamReader file = new StreamReader(inputPath + fileName);
+        StreamReader file = new StreamReader(inputPath + this.filePath);
         int i = 0;
         String line = String.Empty;
 
@@ -73,11 +79,19 @@ public class MaskGenerator
         TextureScale.Bilinear(blurMask, dimension, dimension);
     }
 
-    // OBSOLETE ?
+    // debug texture save
     void SaveTexture()
     {
+        string[] fileName = this.filePath.Split('/');
         string path = Application.dataPath + "/Textures/";
         byte[] bytes = blurMask.EncodeToPNG();
-        File.WriteAllBytes(path + "Mask.png", bytes);
+
+        try {
+            File.WriteAllBytes(path + fileName[1] + ".png", bytes);
+            Debug.Log("Successfully saved mask to png.");
+        } catch(Exception e) {
+            Debug.LogError("Failed saving mask to png. " + e);
+        }
+
     }
 }

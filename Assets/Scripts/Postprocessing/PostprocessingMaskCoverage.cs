@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Varjo;
 
 [ExecuteInEditMode]
 public class PostprocessingMaskCoverage : MonoBehaviour

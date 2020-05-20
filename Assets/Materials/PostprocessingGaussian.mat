@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: PostprocessingGaussian
   m_Shader: {fileID: 4800000, guid: 4353997571fb344fbb35d61801540570, type: 3}
-  m_ShaderKeywords: GAUSS _SAMPLES_HIGH
+  m_ShaderKeywords: GAUSS _SAMPLES_MEDIUM
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -48,11 +48,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskLeft:
-        m_Texture: {fileID: 2800000, guid: e4fb005bcf11d4396bbcb212a4be92c7, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskRight:
-        m_Texture: {fileID: 2800000, guid: e4fb005bcf11d4396bbcb212a4be92c7, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -68,7 +68,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _BlurSize: 0.412
+    - _BlurSize: 0.364
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
@@ -81,11 +81,11 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Samples: 2
+    - _Samples: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _StandardDeviation: 0.04
+    - _StandardDeviation: 0.001
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:

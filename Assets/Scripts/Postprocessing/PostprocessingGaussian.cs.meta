@@ -6,6 +6,8 @@ MonoImporter:
   defaultReferences:
   - postprocessMaterial: {fileID: 2100000, guid: daabfbc16bcf54ee39afb7df09624b42,
       type: 2}
+  - placeHolderTextureLeftEye: {instanceID: 0}
+  - placeHolderTextureRightEye: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
