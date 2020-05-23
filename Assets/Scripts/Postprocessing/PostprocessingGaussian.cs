@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Varjo;
 
 [ExecuteInEditMode]
 public class PostprocessingGaussian : MonoBehaviour
@@ -13,7 +14,21 @@ public class PostprocessingGaussian : MonoBehaviour
     Texture2D placeHolderTextureLeftEye, placeHolderTextureRightEye;
     [SerializeField]
     bool saveTexture, useGeneratedMasks;
-    bool created = false;
+    bool saved = false;
+    VarjoLayer varjoLayer;
+
+    void Start()
+    {
+        VarjoViewCamera varjoCamera = GetComponent<VarjoViewCamera>();
+        Debug.Log(varjoCamera.CAMERA_ID);
+        VarjoLayer varjoLayer = GetComponent<VarjoLayer>();
+        //Debug.Log(this.varjoLayer.GetRenderTextureForCamera(varjoCamera.CAMERA_ID));
+    }
+
+    void Update()
+    {
+        //Postprocess(this.cam.targetTexture);
+    }
 
     // set eye textures to placeholder
     void Awake()
@@ -32,35 +47,52 @@ public class PostprocessingGaussian : MonoBehaviour
         }
     }
 
-    // method which is automatically called by unity after the camera is done rendering
-    void OnRenderImage(RenderTexture source, RenderTexture destination)
+    void Postprocess(RenderTexture source)
     {
-        // draws the pixels from the source texture to the destination texture
-        var temporaryTexture = RenderTexture.GetTemporary(source.width, source.height);
-        Graphics.Blit(source, temporaryTexture, postprocessMaterial, 0);
-        Graphics.Blit(temporaryTexture, destination, postprocessMaterial, 1);
 
-        if(!this.created){
-            SaveTexture(source, "Source");
-            SaveTexture(temporaryTexture, "Temp");
+
+        // RenderTexture destination = this.cam.targetTexture;
+        // RenderTexture temporaryTexture = RenderTexture.GetTemporary(source.width, source.height);
+        // Graphics.Blit(source, temporaryTexture, postprocessMaterial, 0);
+        // Graphics.Blit(temporaryTexture, destination, 1);
+
+        if(!saved){
+            SaveTexture(source, this.cam.name + "Source");
+            // SaveTexture(temporaryTexture, this.cam.name + "Temp");
+            saved = true;
         }
-        RenderTexture.ReleaseTemporary(temporaryTexture);
-
-
+        // RenderTexture.ReleaseTemporary(temporaryTexture);
+        // this.cam.targetTexture = destination;
     }
+
+    // method which is automatically called by unity after the camera is done rendering
+    // void OnRenderImage(RenderTexture source, RenderTexture destination)
+    // {
+    //     // draws the pixels from the source texture to the destination texture
+    //     Graphics.Blit(source, temporaryTexture, postprocessMaterial, 0);
+    //     Graphics.Blit(temporaryTexture, destination, postprocessMaterial, 1);
+
+    //     Camera cam = GetComponent<Camera>();
+
+
+    // }
 
     public void SaveTexture(RenderTexture rt, string name)
     {
-        this.created = true;
+        Debug.Log("Saving frame from " + name);
         byte[] bytes = toTexture2D(rt).EncodeToPNG();
-        System.IO.File.WriteAllBytes("C:/Users/Lukas Masopust/Documents/SavedScreen" + name + ".png", bytes);
+        System.IO.File.WriteAllBytes("C:/Users/Lukas Masopust/Documents/SavedScreen" + name +".png", bytes);
     }
     Texture2D toTexture2D(RenderTexture rTex)
     {
-        Texture2D tex = new Texture2D(rTex.width, rTex.height, TextureFormat.RGB24, false);
-        RenderTexture.active = rTex;
-        tex.ReadPixels(new Rect(0, 0, rTex.width, rTex.height), 0, 0);
-        tex.Apply();
-        return tex;
+        if(rTex != null)
+        {
+            Texture2D tex = new Texture2D(rTex.width, rTex.height, TextureFormat.RGB24, false);
+            RenderTexture.active = rTex;
+            tex.ReadPixels(new Rect(0, 0, rTex.width, rTex.height), 0, 0);
+            tex.Apply();
+            return tex;
+        }
+        return null;
     }
 }
