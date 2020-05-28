@@ -5,16 +5,15 @@ using UnityEngine.XR;
 
 public class VRManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        DisableVR();
-    }
+    [SerializeField]
+    bool enableVR = false;
 
-    // Update is called once per frame
-    void Update()
+    void Awake()
     {
-        
+        if(!enableVR)
+        {
+            DisableVR();
+        }
     }
 
     IEnumerator LoadDevice(string newDevice, bool enable)
@@ -24,13 +23,11 @@ public class VRManager : MonoBehaviour
         XRSettings.enabled = enable;
     }
 
-    void EnableVR()
-    {
-        StartCoroutine(LoadDevice("daydream", true));
-    }
-
     void DisableVR()
-    {
+    {   
         StartCoroutine(LoadDevice("", false));
+        GameObject.Find("Main Camera").SetActive(true);
+        GameObject.Find("Main Camera").GetComponent<Camera>().clearFlags = CameraClearFlags.Skybox;
+        GameObject.Find("VarjoCameraRig").SetActive(false);
     }
 }
