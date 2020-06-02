@@ -26,8 +26,8 @@ public class VRManager : MonoBehaviour
     void DisableVR()
     {   
         StartCoroutine(LoadDevice("", false));
-        GameObject.Find("Main Camera").SetActive(true);
-        GameObject.Find("Main Camera").GetComponent<Camera>().clearFlags = CameraClearFlags.Skybox;
+        GameObject.Find("Shader Test Camera").SetActive(true);
+        GameObject.Find("Shader Test Camera").GetComponent<Camera>().clearFlags = CameraClearFlags.Skybox;
         GameObject.Find("VarjoCameraRig").SetActive(false);
     }
 }

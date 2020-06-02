@@ -111,7 +111,7 @@
 
 				// get color pixel in rendered image and mask texture
 				half4 originalColor = tex2D(_MainTex, i.uv);
-				half4 maskColorLeft = tex2D(_MaskLeft, i.uv)=;
+				half4 maskColorLeft = tex2D(_MaskLeft, i.uv);
 				half4 maskColorRight = tex2D(_MaskRight, i.uv);
 
 				// divide the sum of values by the amount of samples
