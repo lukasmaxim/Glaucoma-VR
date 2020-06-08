@@ -35,6 +35,8 @@ namespace Varjo
             FOCUS_RIGHT = 3
         };
 
+        public float t;
+
         [SerializeField]
         private CAMERA_ID _cameraId;
         public CAMERA_ID CameraId
@@ -206,7 +208,7 @@ namespace Varjo
             float aspect = projMat.m11 / projMat.m00;
             cam.sensorSize = new Vector2(cam.sensorSize.x, cam.sensorSize.x / aspect);
             // Calculate FOV and shift
-            float t = projMat.m11;
+            this.t = projMat.m11;
             const float Rad2Deg = 180.0f / (float)Math.PI;
             float fov = ((float)Math.Atan(1.0f / t)) * 2.0f * Rad2Deg;
 
