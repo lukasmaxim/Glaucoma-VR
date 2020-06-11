@@ -32,8 +32,7 @@ MonoBehaviour:
   m_Name: Varjo Left Focus Profile 1
   m_EditorClassIdentifier: 
   settings:
-  - {fileID: -6938895800966254411}
-  - {fileID: 3015822918160737817}
+  - {fileID: 5294336951406145002}
 --- !u!114 &3015822918160737817
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -50,6 +49,25 @@ MonoBehaviour:
   enabled:
     overrideState: 1
     value: 1
-  blend:
+  distance_silder:
+    overrideState: 0
+    value: 2.5
+--- !u!114 &5294336951406145002
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c7c7a03c98c84c4f99fff1339cca97c, type: 3}
+  m_Name: FollowGaze
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
     overrideState: 1
-    value: 0.5
+    value: 1
+  distance_silder:
+    overrideState: 0
+    value: 2.5
