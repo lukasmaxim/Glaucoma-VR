@@ -15,6 +15,7 @@ MonoBehaviour:
   settings:
   - {fileID: 1051048320583889959}
   - {fileID: 4439726037090034773}
+  - {fileID: 4188365854683655184}
 --- !u!114 &1051048320583889959
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -27,13 +28,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c7c7a03c98c84c4f99fff1339cca97c, type: 3}
   m_Name: FollowGaze
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
   offsetLeftX: 0.0925
   offsetRightX: 0.0865
   offsetY: -0.0034
+  t:
+    overrideState: 0
+    value: 0.5
+--- !u!114 &4188365854683655184
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3ba280bdfdc69443a17f58cb4458587, type: 3}
+  m_Name: FollowGazeNew
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  offsetLeftX: 0.0925
+  offsetRightX: -0.0865
+  offsetY: -0.0034
+  t:
+    overrideState: 0
+    value: 0.5
 --- !u!114 &4439726037090034773
 MonoBehaviour:
   m_ObjectHideFlags: 3
