@@ -1,47 +1,46 @@
 Shader "Custom/FollowGaze"{
-    //show values to edit in inspector
-    Properties
-    {
-        _MaskTexture ("Mask Texture", 2D) = "white" {}
-        _MaskColor ("Mask Color", Color) = (0,1,1,1)
-    }
 
     HLSLINCLUDE
 
     #include "Packages/com.unity.postprocessing/PostProcessing/Shaders/StdLib.hlsl"
     
     TEXTURE2D_SAMPLER2D(_MainTex, sampler_MainTex);
-    TEXTURE2D_SAMPLER2D(_MaskTexture, sampler_MaskTexture);
-    float4 _MaskColor;
     float4 _MainTex_TexelSize;
 
-    // LETS DO THIS IN C#
-    // float4 gazeDirection;
-    // float4 normalizedGazeDireciton = normalize(gazeDirection);
-    // float4 worldGazeDirection = mul(unity_ObjectToWorld, normalizedGazeDireciton);
-    
-    float2 gaze;
+    float3 gaze;
+    float4 gazeProjected;
+    float2 gazeNormalized;
 
-    // debug so I don't go insane
-    float4 MaskCoverage(VaryingsDefault i) : SV_Target
-    {
-        half4 originalColor = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.texcoord);
-        half4 maskValue = SAMPLE_TEXTURE2D(_MaskTexture, sampler_MaskTexture, i.texcoord);
+    float distance;
+    float aspect;
 
-        return lerp(originalColor, _MaskColor, maskValue);
-    }
+    float circleRadius;
+    float4 circleColor;
 
     // draw a circle where the gaze goes
     float4 FragDefault(VaryingsDefault i) : SV_Target
     {
-        float aspect = _MainTex_TexelSize.w / _MainTex_TexelSize.z;
+        circleRadius = 0.01f;
+        circleColor = float4(1.0f, 0.2f, 0.0f, 0.0f);
 
-        // distance to gaze
-        float d = sqrt(pow(gaze.x - i.texcoord.x, 2) + pow(gaze.y * aspect - i.texcoord.y * aspect, 2));
+        // gaze is in object coords; first turn into world coords, then use the view projection matrix (VP) to get clip coords;
+        // normally we could do this with MVP, but MVP is no longer :(
+        //
+        // turn object coords into clip coords by multiplying unity_ObjectToWorld (for getting world coords) and unity_MatrixVP (for getting eye coords and then clip coords)
+        // helpful image: http://blog.hvidtfeldts.net/media/opengl.png
+        gazeProjected = mul(mul(unity_ObjectToWorld, unity_MatrixVP), float4(gaze, 1.0f)); // 4th dim has to be 1.0
+        gazeNormalized = (gazeProjected.xy / gazeProjected.w) * float2(0.5f, -0.5f) + float2(0.5f, 0.5f); // multiplication and addition is for transforming -1...1 to 0...1 in directx and metal
 
-        if(d < 0.01f)
+        // account for aspect ratio
+        aspect = _MainTex_TexelSize.w / _MainTex_TexelSize.z;
+
+        // calculate the distance between i and the gaze
+        distance = sqrt(pow(gazeNormalized.x - i.texcoord.x, 2) + pow(gazeNormalized.y * aspect - i.texcoord.y * aspect, 2));
+
+        // if i is in the radius, fill with color
+        if(distance < circleRadius)
         {
-            return float4(1,0,1,1);
+            return circleColor;
         }
         else
         {

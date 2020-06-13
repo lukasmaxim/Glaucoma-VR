@@ -15,7 +15,6 @@ MonoBehaviour:
   settings:
   - {fileID: 7646485798356625805}
   - {fileID: 5833174579451957950}
-  - {fileID: 3345952546991647346}
 --- !u!114 &3345952546991647346
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -32,12 +31,7 @@ MonoBehaviour:
   enabled:
     overrideState: 1
     value: 1
-  offsetLeftX: 0.0925
-  offsetRightX: -0.0865
-  offsetY: -0.0034
-  t:
-    overrideState: 0
-    value: 0.5
+  defaultVector: {x: 0, y: 0, z: 1}
 --- !u!114 &5833174579451957950
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -75,13 +69,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c7c7a03c98c84c4f99fff1339cca97c, type: 3}
   m_Name: FollowGaze
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
-  offsetLeftX: 0.0925
-  offsetRightX: 0.0865
-  offsetY: -0.0034
-  t:
-    overrideState: 0
-    value: 0.5
+  defaultVector: {x: 0, y: 0, z: 1}
