@@ -5,7 +5,7 @@ using UnityEngine.Rendering.PostProcessing;
 using Varjo;
 
 [Serializable]
-[PostProcess(typeof(DrawCrossRenderer), PostProcessEvent.AfterStack, "Custom/DrawCross")]
+[PostProcess(typeof(DrawCrossRenderer), PostProcessEvent.AfterStack, "Debug/DrawCross")]
 public sealed class DrawCross : PostProcessEffectSettings
 {
     [Range(0f, 0.1f), Tooltip("Left x offset.")]

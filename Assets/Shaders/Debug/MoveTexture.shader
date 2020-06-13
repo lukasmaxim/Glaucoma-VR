@@ -1,4 +1,4 @@
-Shader "Custom/MoveTexture"{
+Shader "Debug/MoveTexture"{
 
     HLSLINCLUDE
 
@@ -11,6 +11,8 @@ Shader "Custom/MoveTexture"{
     float4 gazeProjected;
     float2 gazeNormalized;
 
+    float scaleFactor;
+
     float distance;
     float aspect;
 
@@ -20,7 +22,8 @@ Shader "Custom/MoveTexture"{
     // draw a circle where the gaze goes
     float4 FragDefault(VaryingsDefault i) : SV_Target
     {
-        circleRadius = 0.01f;
+        // scale radius depending on which screen we render for
+        circleRadius = 0.01f * scaleFactor;
         circleColor = float4(1.0f, 0.2f, 0.0f, 0.0f);
 
         // gaze is in object coords; first turn into world coords, then use the view projection matrix (VP) to get clip coords;
@@ -31,11 +34,8 @@ Shader "Custom/MoveTexture"{
         gazeProjected = mul(mul(unity_ObjectToWorld, unity_MatrixVP), float4(gaze, 1.0f)); // 4th dim has to be 1.0
         gazeNormalized = (gazeProjected.xy / gazeProjected.w) * float2(0.5f, -0.5f) + float2(0.5f, 0.5f); // multiplication and addition is for transforming -1...1 to 0...1 in directx and metal
 
-        // account for aspect ratio
-        aspect = _MainTex_TexelSize.w / _MainTex_TexelSize.z;
-
         // calculate the distance between i and the gaze
-        distance = sqrt(pow(gazeNormalized.x - i.texcoord.x, 2) + pow(gazeNormalized.y * aspect - i.texcoord.y * aspect, 2));
+        distance = sqrt(pow(gazeNormalized.x * aspect - i.texcoord.x * aspect, 2) + pow(gazeNormalized.y - i.texcoord.y, 2));
 
         // if i is in the radius, fill with color
         if(distance < circleRadius)

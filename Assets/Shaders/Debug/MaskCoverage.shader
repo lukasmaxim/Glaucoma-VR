@@ -1,4 +1,5 @@
-﻿Shader "Custom/MaskCoverage"{
+﻿Shader "Debug/MaskCoverage"{
+	
 	//show values to edit in inspector
 	Properties
 	{

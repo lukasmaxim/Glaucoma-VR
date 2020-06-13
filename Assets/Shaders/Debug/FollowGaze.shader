@@ -1,4 +1,4 @@
-Shader "Custom/FollowGaze"{
+Shader "Debug/FollowGaze"{
 
     HLSLINCLUDE
 

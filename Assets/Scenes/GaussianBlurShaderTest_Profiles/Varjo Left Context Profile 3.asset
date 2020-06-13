@@ -1,31 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8818791451732561438
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b8a6263f6ce3444096fd1d78aa3b70f, type: 3}
-  m_Name: DrawCross
-  m_EditorClassIdentifier: 
-  active: 0
-  enabled:
-    overrideState: 1
-    value: 1
-  offsetLeftX:
-    overrideState: 0
-    value: 0.0925
-  offsetRightX:
-    overrideState: 0
-    value: 0.0865
-  offsetY:
-    overrideState: 0
-    value: -0.00009
---- !u!114 &-986851097386713883
+--- !u!114 &-5213356866091662889
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,6 +17,10 @@ MonoBehaviour:
     overrideState: 1
     value: 1
   defaultVector: {x: 0, y: 0, z: 1}
+  aspectFocus: 1.77
+  aspectContext: 0.9
+  scaleFactorFocus: 5.7
+  scaleFactorContext: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55,8 +34,7 @@ MonoBehaviour:
   m_Name: Varjo Left Context Profile 3
   m_EditorClassIdentifier: 
   settings:
-  - {fileID: -986851097386713883}
-  - {fileID: -8818791451732561438}
+  - {fileID: -5213356866091662889}
 --- !u!114 &4133362127339084497
 MonoBehaviour:
   m_ObjectHideFlags: 3

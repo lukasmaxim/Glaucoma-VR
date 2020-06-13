@@ -1304,7 +1304,7 @@ MonoBehaviour:
       PublicKeyToken=null
   - assemblyQualifiedName: DrawCross, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  - assemblyQualifiedName: FollowGazeNew, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+  - assemblyQualifiedName: MoveTexture, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
 --- !u!20 &807787054
 Camera:
@@ -1764,7 +1764,7 @@ MonoBehaviour:
       PublicKeyToken=null
   - assemblyQualifiedName: DrawCross, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  - assemblyQualifiedName: FollowGazeNew, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+  - assemblyQualifiedName: MoveTexture, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
 --- !u!81 &955230416
 AudioListener:
@@ -2953,7 +2953,7 @@ MonoBehaviour:
       PublicKeyToken=null
   - assemblyQualifiedName: DrawCross, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  - assemblyQualifiedName: FollowGazeNew, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+  - assemblyQualifiedName: MoveTexture, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
 --- !u!1 &1716010260
 GameObject:
@@ -3458,7 +3458,7 @@ MonoBehaviour:
       PublicKeyToken=null
   - assemblyQualifiedName: DrawCross, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  - assemblyQualifiedName: FollowGazeNew, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+  - assemblyQualifiedName: MoveTexture, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
 --- !u!1 &1939730292
 GameObject:
@@ -4236,7 +4236,7 @@ MonoBehaviour:
       PublicKeyToken=null
   - assemblyQualifiedName: DrawCross, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  - assemblyQualifiedName: FollowGazeNew, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+  - assemblyQualifiedName: MoveTexture, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
 --- !u!1 &2137373086
 GameObject:

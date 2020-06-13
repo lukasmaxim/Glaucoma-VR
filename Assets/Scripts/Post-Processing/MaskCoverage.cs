@@ -5,7 +5,7 @@ using UnityEngine.Rendering.PostProcessing;
 using Varjo;
 
 [Serializable]
-[PostProcess(typeof(MaskCoverageRenderer), PostProcessEvent.AfterStack, "Custom/MaskCoverage")]
+[PostProcess(typeof(MaskCoverageRenderer), PostProcessEvent.AfterStack, "Debug/MaskCoverage")]
 public sealed class MaskCoverage : PostProcessEffectSettings
 {
 }
@@ -26,7 +26,7 @@ public sealed class MaskCoverageRenderer : PostProcessEffectRenderer<MaskCoverag
             }
         }
 
-        var sheet = context.propertySheets.Get(Shader.Find("Custom/MaskCoverage"));
+        var sheet = context.propertySheets.Get(Shader.Find("Debug/MaskCoverage"));
         context.command.BlitFullscreenTriangle(context.source, context.destination, sheet, 0);
     }
 

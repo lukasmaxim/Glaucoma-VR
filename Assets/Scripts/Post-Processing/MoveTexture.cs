@@ -5,17 +5,17 @@ using UnityEngine.Rendering.PostProcessing;
 using Varjo;
 
 [Serializable]
-[PostProcess(typeof(FollowGazeRenderer), PostProcessEvent.AfterStack, "Debug/FollowGaze")]
-public sealed class FollowGaze : PostProcessEffectSettings
+[PostProcess(typeof(MoveTextureRenderer), PostProcessEvent.AfterStack, "Debug/MoveTexture")]
+public sealed class MoveTexture : PostProcessEffectSettings
 {
     public Vector3 defaultVector = new Vector3(0, 0, 1);
-    public float aspectFocus = 1.7777f;
+    public float aspectFocus = 1.77f;
     public float aspectContext = 0.9f;
-    public float scaleFactorFocus = 5.75f;
+    public float scaleFactorFocus = 5.7f;
     public float scaleFactorContext = 1.0f;
 }
 
-public sealed class FollowGazeRenderer : PostProcessEffectRenderer<FollowGaze>
+public sealed class MoveTextureRenderer : PostProcessEffectRenderer<MoveTexture>
 {
     // dummy transform to transform gaze from object to world coords
     Transform transform = GameObject.Find("Dummy Transform").transform;
@@ -64,7 +64,7 @@ public sealed class FollowGazeRenderer : PostProcessEffectRenderer<FollowGaze>
 
     void followGazePlane(PostProcessRenderContext context, bool invalid, Vector3 gazeOrigin, Vector3 gazeDirection, float aspect, float scaleFactor)
     {
-        var sheet = context.propertySheets.Get(Shader.Find("Debug/FollowGaze"));
+        var sheet = context.propertySheets.Get(Shader.Find("Debug/MoveTexture"));
 
         if (!invalid)
         {

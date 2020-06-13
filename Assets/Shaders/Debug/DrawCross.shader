@@ -1,9 +1,5 @@
-Shader "Custom/DrawCross"{
-    //show values to edit in inspector
-    Properties
-    {
-    }
-
+Shader "Debug/DrawCross"{
+    
     HLSLINCLUDE
 
     #include "Packages/com.unity.postprocessing/PostProcessing/Shaders/StdLib.hlsl"
