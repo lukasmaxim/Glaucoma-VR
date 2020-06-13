@@ -8,105 +8,69 @@ using Varjo;
 [PostProcess(typeof(FollowGazeNewRenderer), PostProcessEvent.AfterStack, "Custom/FollowGazeNew")]
 public sealed class FollowGazeNew : PostProcessEffectSettings
 {
-    // empirical offset values through DrawCross.cs
-    public float offsetLeftX = 0.0925f;
-    public float offsetRightX = -0.0865f;
-    public float offsetY = -0.0034f;
-
-    public float camNearClipPlane = 0.01f;
-    public float camFarClipPlane = 1000f;
-    public float worldScreenRatio = 0.1f;
+    public Vector3 defaultVector = new Vector3(0, 0, 1);
 }
 
 public sealed class FollowGazeNewRenderer : PostProcessEffectRenderer<FollowGazeNew>
 {
-    Transform transform = new GameObject("Dummy Transform").transform;
-    VarjoViewCamera varjoViewCameraLeftContext, varjoViewCameraLeftFocus, varjoViewCameraRightContext, varjoViewCameraRightFocus;
-    VarjoPlugin.ViewInfo viewInfoLeftContext, viewInfoLeftFocus, viewInfoRightContext, viewInfoRightFocus;
+    // dummy transform to transform gaze from object to world coords
+    Transform transform = GameObject.Find("Dummy Transform").transform;
     Vector3 gazeOriginLeft, gazeDirectionLeft, gazeOriginRight, gazeDirectionRight;
     bool leftInvalid, rightInvalid;
 
+    // called at the end of each frame's rendering pipe
     public override void Render(PostProcessRenderContext context)
     {
-        GetViewInfo();
-
-        // get gaze status
+        // get gaze validity
         leftInvalid = VarjoPlugin.GetGaze().leftStatus == VarjoPlugin.GazeEyeStatus.EYE_INVALID;
         rightInvalid = VarjoPlugin.GetGaze().leftStatus == VarjoPlugin.GazeEyeStatus.EYE_INVALID;
 
         // get hmd pose
-        transform.rotation = VarjoManager.Instance.GetHMDOrientation(VarjoPlugin.PoseType.CENTER);
-        transform.position = VarjoManager.Instance.GetHMDPosition(VarjoPlugin.PoseType.CENTER);
+        VarjoPlugin.Matrix matrix;
+        VarjoManager.Instance.GetPose(VarjoPlugin.PoseType.CENTER, out matrix);
+        if(Double3ToVector3(matrix.value) != Vector3.zero) // this is so we don't get annoying console logs when we are in editor mode...
+        {
+            transform.rotation = VarjoManager.Instance.GetHMDOrientation(VarjoPlugin.PoseType.CENTER);
+            transform.position = VarjoManager.Instance.GetHMDPosition(VarjoPlugin.PoseType.CENTER);
+        }
 
         // get gaze
         gazeOriginLeft = transform.TransformPoint(Double3ToVector3(VarjoPlugin.GetGaze().left.position));
-        gazeDirectionLeft = transform.TransformVector(Double3ToVector3(VarjoPlugin.GetGaze().left.forward) * settings.worldScreenRatio);
+        gazeDirectionLeft = transform.TransformVector(Double3ToVector3(VarjoPlugin.GetGaze().left.forward));
         gazeOriginRight = transform.TransformPoint(Double3ToVector3(VarjoPlugin.GetGaze().left.position));
-        gazeDirectionRight = transform.TransformVector(Double3ToVector3(VarjoPlugin.GetGaze().left.forward) * settings.worldScreenRatio);
+        gazeDirectionRight = transform.TransformVector(Double3ToVector3(VarjoPlugin.GetGaze().left.forward));
 
         // switch based on eye
         switch (context.camera.name)
         {
             case "Varjo Left Context":
-                handleGazeDebug(context, viewInfoLeftContext, leftInvalid, gazeOriginLeft, gazeDirectionLeft);
+                followGazePlane(context, leftInvalid, gazeOriginLeft, gazeDirectionLeft);
                 break;
             case "Varjo Left Focus":
-                handleGazeDebug(context, viewInfoLeftFocus, leftInvalid, gazeOriginLeft, gazeDirectionLeft);
+                followGazePlane(context, leftInvalid, gazeOriginLeft, gazeDirectionLeft);
                 break;
             case "Varjo Right Context":
-                handleGazeDebug(context, viewInfoRightContext, rightInvalid, gazeOriginRight, gazeDirectionRight);
+                followGazePlane(context, rightInvalid, gazeOriginRight, gazeDirectionRight);
                 break;
             case "Varjo Right Focus":
-                handleGazeDebug(context, viewInfoRightFocus, rightInvalid, gazeOriginRight, gazeDirectionRight);
+                followGazePlane(context, rightInvalid, gazeOriginRight, gazeDirectionRight);
                 break;
         }
     }
 
-    void handleGazeDebug(PostProcessRenderContext context, VarjoPlugin.ViewInfo viewInfo, bool invalid, Vector3 gazeOrigin, Vector3 gazeDirection)
+    void followGazePlane(PostProcessRenderContext context, bool invalid, Vector3 gazeOrigin, Vector3 gazeDirection)
     {
-        var sheet = context.propertySheets.Get(Shader.Find("Custom/FollowGaze"));
+        var sheet = context.propertySheets.Get(Shader.Find("Custom/FollowGazeNew"));
 
         if (!invalid)
         {
-            Matrix4x4 viewMat = VarjoMatrixUtils.ViewMatrixToUnity(viewInfo.invViewMatrix);
-            Matrix4x4 projMat = VarjoMatrixUtils.ProjectionMatrixToUnity(viewInfo.projectionMatrix, settings.camNearClipPlane, settings.camFarClipPlane);
-
-            Vector3 dir = projMat.MultiplyPoint(gazeDirection);
-            Vector3 pos = projMat.MultiplyPoint(gazeOrigin);
-
-            Vector3 hit = ((pos + dir) / -2.0f) + new Vector3(0.5f, 0.5f, 0); // MINUS 2 because the dot will move diametrically to the gaze direction
-
-            sheet.properties.SetVector("gaze", new Vector2(hit.x, hit.y));
+            sheet.properties.SetVector("gaze", gazeOrigin + gazeDirection);
         }
         else
         {
-            sheet.properties.SetVector("gaze", new Vector2(0.5f, 0.5f));
+            sheet.properties.SetVector("gaze", settings.defaultVector);
         }
         context.command.BlitFullscreenTriangle(context.source, context.destination, sheet, 0);
-    }
-
-    void GetViewInfo()
-    {
-        if (!varjoViewCameraLeftContext)
-        {
-            varjoViewCameraLeftContext = GameObject.Find("Varjo Left Context").GetComponent<VarjoViewCamera>();
-            viewInfoLeftContext = VarjoManager.Instance.GetViewInfo((int)varjoViewCameraLeftContext.CameraId);
-        }
-        if (!varjoViewCameraLeftFocus)
-        {
-            varjoViewCameraLeftFocus = GameObject.Find("Varjo Left Focus").GetComponent<VarjoViewCamera>();
-            viewInfoLeftFocus = VarjoManager.Instance.GetViewInfo((int)varjoViewCameraLeftFocus.CameraId);
-        }
-        if (!varjoViewCameraRightContext)
-        {
-            varjoViewCameraRightContext = GameObject.Find("Varjo Right Context").GetComponent<VarjoViewCamera>();
-            viewInfoRightContext = VarjoManager.Instance.GetViewInfo((int)varjoViewCameraRightContext.CameraId);
-        }
-        if (!varjoViewCameraRightFocus)
-        {
-            varjoViewCameraRightFocus = GameObject.Find("Varjo Right Focus").GetComponent<VarjoViewCamera>();
-            viewInfoRightFocus = VarjoManager.Instance.GetViewInfo((int)varjoViewCameraRightFocus.CameraId);
-        }
     }
 
     Vector3 Double3ToVector3(double[] doubles)
