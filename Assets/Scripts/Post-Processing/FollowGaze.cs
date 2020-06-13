@@ -9,6 +9,10 @@ using Varjo;
 public sealed class FollowGaze : PostProcessEffectSettings
 {
     public Vector3 defaultVector = new Vector3(0, 0, 1);
+    public float aspectFocus = 1.77f;
+    public float aspectContext = 0.9f;
+    public float scaleFactorFocus = 5.7f;
+    public float scaleFactorContext = 1.0f;
 }
 
 public sealed class FollowGazeRenderer : PostProcessEffectRenderer<FollowGaze>
@@ -44,31 +48,35 @@ public sealed class FollowGazeRenderer : PostProcessEffectRenderer<FollowGaze>
         switch (context.camera.name)
         {
             case "Varjo Left Context":
-                followGazePlane(context, leftInvalid, gazeOriginLeft, gazeDirectionLeft);
+                followGazePlane(context, leftInvalid, gazeOriginLeft, gazeDirectionLeft, settings.aspectContext, settings.scaleFactorContext);
                 break;
             case "Varjo Left Focus":
-                followGazePlane(context, leftInvalid, gazeOriginLeft, gazeDirectionLeft);
+                followGazePlane(context, leftInvalid, gazeOriginLeft, gazeDirectionLeft, settings.aspectFocus, settings.scaleFactorFocus);
                 break;
             case "Varjo Right Context":
-                followGazePlane(context, rightInvalid, gazeOriginRight, gazeDirectionRight);
+                followGazePlane(context, rightInvalid, gazeOriginRight, gazeDirectionRight, settings.aspectContext, settings.scaleFactorContext);
                 break;
             case "Varjo Right Focus":
-                followGazePlane(context, rightInvalid, gazeOriginRight, gazeDirectionRight);
+                followGazePlane(context, rightInvalid, gazeOriginRight, gazeDirectionRight, settings.aspectFocus, settings.scaleFactorFocus);
                 break;
         }
     }
 
-    void followGazePlane(PostProcessRenderContext context, bool invalid, Vector3 gazeOrigin, Vector3 gazeDirection)
+    void followGazePlane(PostProcessRenderContext context, bool invalid, Vector3 gazeOrigin, Vector3 gazeDirection, float aspect, float scaleFactor)
     {
         var sheet = context.propertySheets.Get(Shader.Find("Custom/FollowGaze"));
 
         if (!invalid)
         {
             sheet.properties.SetVector("gaze", gazeOrigin + gazeDirection);
+            sheet.properties.SetFloat("scaleFactor", scaleFactor);
+            sheet.properties.SetFloat("aspect", aspect);
         }
         else
         {
             sheet.properties.SetVector("gaze", settings.defaultVector);
+            sheet.properties.SetFloat("scaleFactor", scaleFactor);
+            sheet.properties.SetFloat("aspect", aspect);
         }
         context.command.BlitFullscreenTriangle(context.source, context.destination, sheet, 0);
     }
