@@ -8,30 +8,28 @@ using Varjo;
 [PostProcess(typeof(MoveTextureRenderer), PostProcessEvent.AfterStack, "Debug/MoveTexture")]
 public sealed class MoveTexture : PostProcessEffectSettings
 {
-    public Vector3 defaultVector = new Vector3(0, 0, 1);
+    public Vector3 gazeDirectionStraight = new Vector3(0.0f, 0.0f, 1.0f);
     public float aspectFocus = 1.77f;
     public float aspectContext = 0.9f;
-    public float scaleFactorFocus = 5.7f;
+    [Range(6.0f, 6.2f)]
+    public FloatParameter scaleFactorFocus = new FloatParameter { value = 6f };
     public float scaleFactorContext = 1.0f;
 
-
-    [Range(0f, 0.1f), Tooltip("Left x offset.")]
-    public FloatParameter offsetLeftX = new FloatParameter { value = -0.0925f };
-    [Range(0f, 0.1f), Tooltip("Right x offset.")]
-
-    public FloatParameter offsetRightX = new FloatParameter { value = 0.0865f };
-    [Range(-0.1f, 0f), Tooltip("y offset.")]
-    public FloatParameter offsetY = new FloatParameter { value = 0.0034f };
+    public float offsetLeftX = 0;
+    public float offsetRightX = 0 ;
+    public float offsetY = 0;
 
     public int screenContext = -1;
     public int screenFocus = 1;
 
-    [Range(0f, 1)]
-    public FloatParameter offsetFocusX = new FloatParameter { value = 0.0034f };
-    [Range(0f, 1)]
-    public FloatParameter offsetFocusY = new FloatParameter { value = 0.0034f };
-    [Range(3f, 6f)]
-    public FloatParameter scaleFactor = new FloatParameter { value = 0.3f };
+    [Range(0.3f, 0.4f)]
+    public FloatParameter offsetFocusLeftX = new FloatParameter { value = 0.344f };
+    [Range(-0.7f, -0.6f)]
+    public FloatParameter offsetFocusRightX = new FloatParameter { value = -0.652f };
+    [Range(0.4f, 0.5f)]
+    public FloatParameter offsetFocusLeftY = new FloatParameter { value = 0.412f };
+    [Range(-0.6f, -0.5f)]
+    public FloatParameter offsetFocusRightY = new FloatParameter { value = -0.586f };
 }
 
 public sealed class MoveTextureRenderer : PostProcessEffectRenderer<MoveTexture>
@@ -70,13 +68,13 @@ public sealed class MoveTextureRenderer : PostProcessEffectRenderer<MoveTexture>
                 moveTexture(context, leftInvalid, gazeOriginLeft, gazeDirectionLeft, settings.aspectContext, settings.scaleFactorContext, new Vector2(settings.offsetLeftX, settings.offsetY), settings.screenContext);
                 break;
             case "Varjo Left Focus":
-                moveTexture(context, leftInvalid, gazeOriginLeft, gazeDirectionLeft, settings.aspectFocus, settings.scaleFactorFocus, new Vector2(settings.offsetFocusX, settings.offsetFocusY), settings.screenFocus);
+                moveTexture(context, leftInvalid, gazeOriginLeft, gazeDirectionLeft, settings.aspectFocus, settings.scaleFactorFocus, new Vector2(settings.offsetFocusLeftX, settings.offsetFocusLeftY), settings.screenFocus);
                 break;
             case "Varjo Right Context":
                 moveTexture(context, rightInvalid, gazeOriginRight, gazeDirectionRight, settings.aspectContext, settings.scaleFactorContext, new Vector2(settings.offsetRightX, settings.offsetY), settings.screenContext);
                 break;
             case "Varjo Right Focus":
-                moveTexture(context, rightInvalid, gazeOriginRight, gazeDirectionRight, settings.aspectFocus, settings.scaleFactorFocus, new Vector2(settings.offsetFocusX, settings.offsetFocusY), settings.screenFocus);
+                moveTexture(context, rightInvalid, gazeOriginRight, gazeDirectionRight, settings.aspectFocus, settings.scaleFactorFocus, new Vector2(settings.offsetFocusRightX, settings.offsetFocusRightY), settings.screenFocus);
                 break;
         }
     }
@@ -93,8 +91,8 @@ public sealed class MoveTextureRenderer : PostProcessEffectRenderer<MoveTexture>
         }
         else
         {
-            sheet.properties.SetVector("gaze", settings.defaultVector);
-            sheet.properties.SetFloat("scaleFactor", settings.scaleFactor);
+            sheet.properties.SetVector("gaze", transform.TransformPoint(settings.gazeDirectionStraight));
+            sheet.properties.SetFloat("scaleFactor", scaleFactor);
             sheet.properties.SetFloat("aspect", aspect);
             sheet.properties.SetVector("offset", offset);
             sheet.properties.SetInt("screen", screen);

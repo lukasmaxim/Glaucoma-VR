@@ -57,3 +57,29 @@ MonoBehaviour:
   aspectContext: 0.9
   scaleFactorFocus: 5.7
   scaleFactorContext: 1
+  offsetLeftX:
+    overrideState: 0
+    value: 0
+  offsetRightX:
+    overrideState: 0
+    value: 0.0865
+  offsetY:
+    overrideState: 0
+    value: -0.0034
+  screenContext: -1
+  screenFocus: 1
+  offsetFocusLeftX:
+    overrideState: 1
+    value: 0.344
+  offsetFocusRightX:
+    overrideState: 1
+    value: -0.652
+  offsetFocusLeftY:
+    overrideState: 1
+    value: 0.412
+  offsetFocusRightY:
+    overrideState: 1
+    value: -0.586
+  scaleFactor:
+    overrideState: 1
+    value: 0.4

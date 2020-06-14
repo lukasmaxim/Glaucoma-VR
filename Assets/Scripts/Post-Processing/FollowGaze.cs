@@ -74,7 +74,7 @@ public sealed class FollowGazeRenderer : PostProcessEffectRenderer<FollowGaze>
         }
         else
         {
-            sheet.properties.SetVector("gaze", settings.defaultVector);
+            sheet.properties.SetVector("gaze", transform.TransformPoint(settings.defaultVector));
             sheet.properties.SetFloat("scaleFactor", scaleFactor);
             sheet.properties.SetFloat("aspect", aspect);
         }
