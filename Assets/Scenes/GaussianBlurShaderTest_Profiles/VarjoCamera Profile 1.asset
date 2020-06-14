@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e6292b2c06870d4495f009f912b9600, type: 3}
-  m_Name: Varjo Left Context Profile 3
+  m_Name: VarjoCamera Profile 1
   m_EditorClassIdentifier: 
   settings:
-  - {fileID: 6466137978135801102}
---- !u!114 &4133362127339084497
+  - {fileID: 1729153213803608263}
+  - {fileID: 7861075638549263422}
+--- !u!114 &1729153213803608263
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -23,15 +24,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3ba280bdfdc69443a17f58cb4458587, type: 3}
-  m_Name: FollowGazeNew
+  m_Script: {fileID: 11500000, guid: 6c7c7a03c98c84c4f99fff1339cca97c, type: 3}
+  m_Name: FollowGaze
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
   defaultVector: {x: 0, y: 0, z: 1}
---- !u!114 &6466137978135801102
+  aspectFocus: 1.7777
+  aspectContext: 0.9
+  scaleFactorFocus: 5.75
+  scaleFactorContext: 1
+--- !u!114 &7861075638549263422
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 579dcf673caafe14ea2f707466a40207, type: 3}
   m_Name: MoveTexture
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1

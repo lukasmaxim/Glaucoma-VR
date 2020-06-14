@@ -12,9 +12,9 @@ Shader "Debug/FollowGaze"{
     float2 gazeNormalized;
 
     float scaleFactor;
+    float aspect;
 
     float distance;
-    float aspect;
 
     float circleRadius;
     float4 circleColor;

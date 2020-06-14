@@ -14,7 +14,7 @@ public sealed class DrawCross : PostProcessEffectSettings
 
     public FloatParameter offsetRightX = new FloatParameter { value = 0.0865f };
     [Range(-0.1f, 0f), Tooltip("y offset.")]
-    public FloatParameter offsetY = new FloatParameter { value = -0.0034f };
+    public FloatParameter offsetY = new FloatParameter { value = 0.0034f };
 }
 
 public sealed class DrawCrossRenderer : PostProcessEffectRenderer<DrawCross>

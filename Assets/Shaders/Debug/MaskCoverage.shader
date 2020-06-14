@@ -1,6 +1,5 @@
 ﻿Shader "Debug/MaskCoverage"{
 	
-	//show values to edit in inspector
 	Properties
 	{
 		_MaskTexture ("Mask Texture", 2D) = "white" {}
