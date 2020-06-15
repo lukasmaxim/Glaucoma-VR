@@ -20,8 +20,8 @@ public class DataLoader : MonoBehaviour
     void Awake()
     {
         MaskGenerator maskGenerator = new MaskGenerator();
-        masks.Add(maskGenerator.Generate(filePathLeft, saveMask));
-        masks.Add(maskGenerator.Generate(filePathRight, saveMask));
+        masks.AddRange(maskGenerator.Generate(filePathLeft, saveMask));
+        masks.AddRange(maskGenerator.Generate(filePathRight, saveMask));
         Debug.Log("Invoking event.");
         masksReadyEvent.Invoke(masks);
     }

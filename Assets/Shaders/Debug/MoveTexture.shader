@@ -18,7 +18,7 @@ Shader "Debug/MoveTexture"{
     float4 _MaskTexContext_TexelSize;
     float4 _MaskTexFocus_TexelSize;
 	float4 _MaskColor;
-    float4 maskValue;
+    float4 maskColor;
 
     int screen;
 
@@ -56,15 +56,15 @@ Shader "Debug/MoveTexture"{
         if(screen == -1)
         {
             samplePoint = float2(i.texcoord.x * 1/scaleFactor + -gazeNormalized.x * 1/scaleFactor + offset.x, i.texcoord.y * 1/scaleFactor  + -gazeNormalized.y * 1/scaleFactor + offset.y);
-            maskValue = SAMPLE_TEXTURE2D(_MaskTexContext, sampler_MaskTexContext, samplePoint);
+            maskColor = SAMPLE_TEXTURE2D(_MaskTexContext, sampler_MaskTexContext, samplePoint);
         }
         else
         {
             samplePoint = float2(i.texcoord.x * aspect * 1/scaleFactor + -gazeNormalized.x * aspect * 1/scaleFactor + offset.x, i.texcoord.y * 1/scaleFactor  + -gazeNormalized.y * 1/scaleFactor + offset.y);
-            maskValue = SAMPLE_TEXTURE2D(_MaskTexFocus, sampler_MaskTexFocus, samplePoint);
+            maskColor = SAMPLE_TEXTURE2D(_MaskTexFocus, sampler_MaskTexFocus, samplePoint);
         }
 
-		return lerp(originalColor, _MaskColor, maskValue);
+		return lerp(originalColor, maskColor, maskColor.a);
     }
 
     ENDHLSL

@@ -10,13 +10,15 @@ public class MaskGenerator
     int[,] input = new int[10, 10];
     int[,] invertedInput = new int[10, 10];
     int highestValue = 33;
-    Texture2D blurMask;
-    int dimension = 512;
+    Texture2D blurMaskContext, blurMaskFocus;
+    List<Texture2D> Masks = new List<Texture2D>();
+    Tuple<int, int> contextDimensions = new Tuple<int, int>(1600, 1600);
+    Tuple<int, int> focusDimensions = new Tuple<int, int>(2048, 2048);
     string filePath = null;
 
-    public Texture2D Generate(string filePath, bool save)
+    public List<Texture2D> Generate(string filePath, bool save)
     {
-        Debug.Log("Generating mask.");
+        Debug.Log("Generating masks.");
         this.filePath = filePath;
         ReadFile();
         InvertValues();
@@ -25,7 +27,7 @@ public class MaskGenerator
         if(save) {
             SaveTexture();
         }
-        return blurMask;
+        return Masks;
     }
 
     // reads a .txt file with csv data
@@ -44,9 +46,11 @@ public class MaskGenerator
             }
             i++;
         }
-        blurMask = new Texture2D(input.GetLength(0), input.GetLength(1));
+        Masks.Add(new Texture2D(input.GetLength(0), input.GetLength(1)));
+        Masks.Add(new Texture2D(input.GetLength(0), input.GetLength(1)));
     }
 
+    // TODO this should be log()
     // inverts the value
     void InvertValues()
     {
@@ -62,36 +66,41 @@ public class MaskGenerator
     // creates a texture from the inverted input and maps the values to the alpha channel
     void GenerateTexture()
     {
-        for (int i = 0; i < blurMask.width; i++)
+        for (int i = 0; i < Masks[0].width; i++)
         {
-            for (int j = 0; j < blurMask.height; j++)
+            for (int j = 0; j < Masks[0].height; j++)
             {
                 float alpha = (float) invertedInput[i, j] / highestValue;
                 Color color = new Color(1, 1, 1, alpha);
-                blurMask.SetPixel(i, blurMask.height - j - 1, color);
+                Masks[0].SetPixel(i, Masks[0].height - j - 1, color);
+                Masks[1].SetPixel(i, Masks[1].height - j - 1, color);
             }
         }
     }
 
-    // scales the image to specified dimensions
+    // scales the masks to specified dimensions
     void ResizeTexture()
     {
-        TextureScale.Bilinear(blurMask, dimension, dimension);
+        TextureScale.Bilinear(Masks[0], contextDimensions.Item1, contextDimensions.Item2);
+        TextureScale.Bilinear(Masks[1], contextDimensions.Item1, contextDimensions.Item2);
     }
 
     // debug texture save
     void SaveTexture()
     {
-        string[] fileName = this.filePath.Split('/');
-        string path = Application.dataPath + "/Textures/";
-        byte[] bytes = blurMask.EncodeToPNG();
+        foreach(Texture2D mask in Masks)
+        {
+            string[] fileName = this.filePath.Split('/');
+            string path = Application.dataPath + "/Textures/";
+            byte[] bytes = mask.EncodeToPNG();
 
-        try {
-            File.WriteAllBytes(path + fileName[1] + ".png", bytes);
-            Debug.Log("Successfully saved mask to png.");
-        } catch(Exception e) {
-            Debug.LogError("Failed saving mask to png. " + e);
+            try {
+                string screen = Masks.IndexOf(mask) == 0 ? "context" : "focus";
+                File.WriteAllBytes(path + fileName[1] + "_" + screen + ".png", bytes);
+                Debug.Log("Successfully saved mask to png.");
+            } catch(Exception e) {
+                Debug.LogError("Failed saving mask to png. " + e);
+            }
         }
-
     }
 }

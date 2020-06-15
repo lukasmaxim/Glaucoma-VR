@@ -52,34 +52,28 @@ MonoBehaviour:
   enabled:
     overrideState: 1
     value: 1
-  defaultVector: {x: 0, y: 0, z: 1}
-  aspectFocus: 1.77
-  aspectContext: 0.9
-  scaleFactorFocus: 5.7
-  scaleFactorContext: 1
-  offsetLeftX:
-    overrideState: 0
-    value: 0
-  offsetRightX:
-    overrideState: 0
-    value: 0.0865
-  offsetY:
-    overrideState: 0
-    value: -0.0034
+  gazeDirectionStraight: {x: 0, y: 0, z: 1}
   screenContext: -1
+  aspectContext: 0.9
+  scaleFactorContext: 1
+  offsetContextLeftX: 0
+  offsetContextRightX: 0
+  offsetContextLeftY: 0
+  offsetContextRightY: 0
   screenFocus: 1
+  aspectFocus: 1.77
+  scaleFactorFocus:
+    overrideState: 1
+    value: 6.093
   offsetFocusLeftX:
     overrideState: 1
-    value: 0.344
+    value: 0.354
   offsetFocusRightX:
     overrideState: 1
-    value: -0.652
+    value: -0.645
   offsetFocusLeftY:
     overrideState: 1
-    value: 0.412
+    value: 0.418
   offsetFocusRightY:
     overrideState: 1
-    value: -0.586
-  scaleFactor:
-    overrideState: 1
-    value: 0.4
+    value: -0.582

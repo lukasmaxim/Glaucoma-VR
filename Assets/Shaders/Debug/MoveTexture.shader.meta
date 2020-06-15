@@ -4,7 +4,7 @@ ShaderImporter:
   externalObjects: {}
   defaultTextures:
   - _MaskTexContext: {fileID: 2800000, guid: 0e533791d6e385b49851665655dec7a9, type: 3}
-  - _MaskTexFocus: {fileID: 2800000, guid: 19e0561b08cfc75458aea0824222c5b5, type: 3}
+  - _MaskTexFocus: {fileID: 2800000, guid: 393150bcfccc16b478cdc581d5bb6cd5, type: 3}
   nonModifiableTextures: []
   userData: 
   assetBundleName: 
