@@ -5,11 +5,21 @@ using UnityEngine.Rendering.PostProcessing;
 using Varjo;
 
 [Serializable]
-[PostProcess(typeof(MoveTextureRenderer), PostProcessEvent.AfterStack, "Debug/MoveTexture")]
-public sealed class MoveTexture : PostProcessEffectSettings
+[PostProcess(typeof(DecontrastMaskRenderer), PostProcessEvent.AfterStack, "Impairment/DecontrastMask")]
+public sealed class DecontrastMask : PostProcessEffectSettings
 {
+    // // masks
+    public TextureParameter maskLeftContext = new TextureParameter { value = null };
+    public TextureParameter maskLeftFocus = new TextureParameter { value = null };
+    public TextureParameter maskRightContext = new TextureParameter { value = null };
+    public TextureParameter maskRightFocus = new TextureParameter { value = null };
+
     // default gaze direction (straight from cam)
     public Vector3 gazeDirectionStraight = new Vector3(0.0f, 0.0f, 1.0f);
+
+    // eye side indicator
+    public int eyeLeft = -1;
+    public int eyeRight = 1;
 
     // context settings
     public int screenContext = -1;
@@ -32,17 +42,21 @@ public sealed class MoveTexture : PostProcessEffectSettings
     public FloatParameter offsetFocusRightY = new FloatParameter { value = -0.582f };
 }
 
-public sealed class MoveTextureRenderer : PostProcessEffectRenderer<MoveTexture>
+public sealed class DecontrastMaskRenderer : PostProcessEffectRenderer<DecontrastMask>
 {
     // dummy transform to transform gaze from object to world coords
     Transform transform = GameObject.Find("Dummy Transform").transform;
     Vector3 gazeOriginLeft, gazeDirectionLeft, gazeOriginRight, gazeDirectionRight, gazeDirectionStraight;
-    bool leftInvalid, rightInvalid;
+    bool leftInvalid, rightInvalid, set = false;
     Vector2 offsetContextLeft, offsetContextRight, offsetFocusLeft, offsetFocusRight;
+    PostProcessRenderContext context;
+    PropertySheet sheet, sheetRight;
 
     // called at the end of each frame's rendering pipe
     public override void Render(PostProcessRenderContext context)
     {
+        InitialSetup(context);
+
         // get gaze validity
         leftInvalid = VarjoPlugin.GetGaze().leftStatus == VarjoPlugin.GazeEyeStatus.EYE_INVALID;
         rightInvalid = VarjoPlugin.GetGaze().leftStatus == VarjoPlugin.GazeEyeStatus.EYE_INVALID;
@@ -50,7 +64,7 @@ public sealed class MoveTextureRenderer : PostProcessEffectRenderer<MoveTexture>
         // get hmd pose
         VarjoPlugin.Matrix matrix;
         VarjoManager.Instance.GetPose(VarjoPlugin.PoseType.CENTER, out matrix);
-        if(Double3ToVector3(matrix.value) != Vector3.zero) // this is so we don't get annoying console logs when we are in editor mode...
+        if (Double3ToVector3(matrix.value) != Vector3.zero) // this is so we don't get annoying console logs when we are in editor mode...
         {
             transform.rotation = VarjoManager.Instance.GetHMDOrientation(VarjoPlugin.PoseType.CENTER);
             transform.position = VarjoManager.Instance.GetHMDPosition(VarjoPlugin.PoseType.CENTER);
@@ -75,36 +89,36 @@ public sealed class MoveTextureRenderer : PostProcessEffectRenderer<MoveTexture>
         switch (context.camera.name)
         {
             case "Varjo Left Context":
-                ApplyToCamera(context, leftInvalid, gazeOriginLeft, gazeDirectionLeft, settings.aspectContext, settings.scaleFactorContext, offsetContextLeft, settings.screenContext);
+                ApplyToCamera(this.context, this.sheet, settings.eyeLeft, leftInvalid, gazeOriginLeft, gazeDirectionLeft, settings.aspectContext, settings.scaleFactorContext, offsetContextLeft, settings.screenContext);
                 break;
             case "Varjo Left Focus":
-                ApplyToCamera(context, leftInvalid, gazeOriginLeft, gazeDirectionLeft, settings.aspectFocus, settings.scaleFactorFocus, offsetFocusLeft, settings.screenFocus);
+                ApplyToCamera(this.context, this.sheet, settings.eyeLeft, leftInvalid, gazeOriginLeft, gazeDirectionLeft, settings.aspectFocus, settings.scaleFactorFocus, offsetFocusLeft, settings.screenFocus);
                 break;
             case "Varjo Right Context":
-                ApplyToCamera(context, rightInvalid, gazeOriginRight, gazeDirectionRight, settings.aspectContext, settings.scaleFactorContext, offsetContextRight, settings.screenContext);
+                ApplyToCamera(this.context, this.sheet, settings.eyeRight, rightInvalid, gazeOriginRight, gazeDirectionRight, settings.aspectContext, settings.scaleFactorContext, offsetContextRight, settings.screenContext);
                 break;
             case "Varjo Right Focus":
-                ApplyToCamera(context, rightInvalid, gazeOriginRight, gazeDirectionRight, settings.aspectFocus, settings.scaleFactorFocus, offsetFocusRight, settings.screenFocus);
+                ApplyToCamera(this.context, this.sheet, settings.eyeRight, rightInvalid, gazeOriginRight, gazeDirectionRight, settings.aspectFocus, settings.scaleFactorFocus, offsetFocusRight, settings.screenFocus);
                 break;
         }
     }
 
     // move texture for one camera
-    void ApplyToCamera(PostProcessRenderContext context, bool invalid, Vector3 gazeOrigin, Vector3 gazeDirection, float aspect, float scaleFactor, Vector2 offset, int screen)
+    void ApplyToCamera(PostProcessRenderContext context, PropertySheet sheet, int eye, bool invalid, Vector3 gazeOrigin, Vector3 gazeDirection, float aspect, float scaleFactor, Vector2 offset, int screen)
     {
-        var sheet = context.propertySheets.Get(Shader.Find("Debug/MoveTexture"));
-
         // check if gaze data is valid
         if (!invalid)
         {
+            sheet.properties.SetInt("eye", eye);
+            sheet.properties.SetInt("screen", screen);
             sheet.properties.SetVector("gaze", gazeOrigin + gazeDirection);
             sheet.properties.SetFloat("scaleFactor", scaleFactor);
             sheet.properties.SetFloat("aspect", aspect);
             sheet.properties.SetVector("offset", offset);
-            sheet.properties.SetInt("screen", screen);
         }
         else
         {
+            sheet.properties.SetInt("eye", eye);
             sheet.properties.SetVector("gaze", gazeDirectionStraight);
             sheet.properties.SetFloat("scaleFactor", scaleFactor);
             sheet.properties.SetFloat("aspect", aspect);
@@ -112,6 +126,22 @@ public sealed class MoveTextureRenderer : PostProcessEffectRenderer<MoveTexture>
             sheet.properties.SetInt("screen", screen);
         }
         context.command.BlitFullscreenTriangle(context.source, context.destination, sheet, 0);
+    }
+
+    // TODO maybe include more properties that are not gonna change
+    // sets the masks initially
+    void InitialSetup(PostProcessRenderContext context)
+    {
+        if (!set)
+        {
+            this.context = context;
+            this.sheet = context.propertySheets.Get(Shader.Find("Impairment/DecontrastMask"));
+            this.sheet.properties.SetTexture("_MaskTexLeftContext", settings.maskLeftContext);
+            this.sheet.properties.SetTexture("_MaskTexLeftFocus", settings.maskLeftFocus);
+            this.sheet.properties.SetTexture("_MaskTexRightContext", settings.maskRightContext);
+            this.sheet.properties.SetTexture("_MaskTexRightFocus", settings.maskRightFocus);
+            set = true;
+        }
     }
 
     Vector3 Double3ToVector3(double[] doubles)

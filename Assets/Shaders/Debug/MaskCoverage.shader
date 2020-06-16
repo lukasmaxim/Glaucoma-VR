@@ -19,7 +19,8 @@
 		half4 originalColor = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.texcoord);
 		half4 maskValue = SAMPLE_TEXTURE2D(_MaskTexture, sampler_MaskTexture, i.texcoord);
 
-		return lerp(originalColor, _MaskColor, maskValue);
+		
+		return lerp(originalColor, _MaskColor, maskValue.r);
 	}
 
 	ENDHLSL

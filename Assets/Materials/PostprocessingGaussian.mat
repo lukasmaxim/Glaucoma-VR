@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PostprocessingGaussian
-  m_Shader: {fileID: 4800000, guid: 4353997571fb344fbb35d61801540570, type: 3}
+  m_Shader: {fileID: 4800000, guid: 1315d04ea6f7d9741b3445d076e21320, type: 3}
   m_ShaderKeywords: GAUSS _SAMPLES_MEDIUM
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0

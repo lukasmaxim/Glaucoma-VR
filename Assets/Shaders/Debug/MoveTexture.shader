@@ -14,9 +14,6 @@ Shader "Debug/MoveTexture"{
     TEXTURE2D_SAMPLER2D(_MainTex, sampler_MainTex);
     TEXTURE2D_SAMPLER2D(_MaskTexContext, sampler_MaskTexContext);
     TEXTURE2D_SAMPLER2D(_MaskTexFocus, sampler_MaskTexFocus);
-    float4 _MainTex_TexelSize;
-    float4 _MaskTexContext_TexelSize;
-    float4 _MaskTexFocus_TexelSize;
 	float4 _MaskColor;
     float4 maskColor;
 
@@ -41,7 +38,7 @@ Shader "Debug/MoveTexture"{
     float2 samplePoint;
 
     // draw a circle where the gaze goes
-    float4 FragDefault(VaryingsDefault i) : SV_Target
+    float4 Frag(VaryingsDefault i) : SV_Target
     {
         // gaze is in object coords; first turn into world coords, then use the view projection matrix (VP) to get clip coords;
         // normally we could do this with MVP, but MVP is no longer :(
@@ -77,7 +74,7 @@ Shader "Debug/MoveTexture"{
             HLSLPROGRAM
 
             #pragma vertex VertDefault
-            #pragma fragment FragDefault
+            #pragma fragment Frag
             
             ENDHLSL
         }

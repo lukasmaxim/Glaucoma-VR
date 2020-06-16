@@ -22,7 +22,7 @@ public class DataLoader : MonoBehaviour
         MaskGenerator maskGenerator = new MaskGenerator();
         masks.AddRange(maskGenerator.Generate(filePathLeft, saveMask));
         masks.AddRange(maskGenerator.Generate(filePathRight, saveMask));
-        Debug.Log("Invoking event.");
+        Debug.Log("Invoking masks ready event.");
         masksReadyEvent.Invoke(masks);
     }
 }

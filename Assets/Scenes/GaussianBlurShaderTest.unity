@@ -516,6 +516,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: VarjoCameraRig
       objectReference: {fileID: 0}
+    - target: {fileID: 1018523678192792, guid: 3fae7923a8aec364bb24e25c4aa6f079, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4502135317825226, guid: 3fae7923a8aec364bb24e25c4aa6f079, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1288,6 +1292,12 @@ MonoBehaviour:
       PublicKeyToken=null
   - assemblyQualifiedName: MoveTexture, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  - assemblyQualifiedName: BlurMask, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - assemblyQualifiedName: TestShader, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - assemblyQualifiedName: DecontrastMask, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!20 &807787054
 Camera:
   m_ObjectHideFlags: 0
@@ -1563,7 +1573,7 @@ GameObject:
   - component: {fileID: 955230414}
   m_Layer: 0
   m_Name: Shader Test Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1575,12 +1585,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 955230413}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 11400000, guid: 1a3740dc281aa9340bf0d252585ced06, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 7f512a984edd1f346aac4066b287f4ab, type: 2}
   isGlobal: 1
   blendDistance: 0
   weight: 1
@@ -1655,6 +1665,12 @@ MonoBehaviour:
       PublicKeyToken=null
   - assemblyQualifiedName: MoveTexture, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  - assemblyQualifiedName: BlurMask, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - assemblyQualifiedName: TestShader, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - assemblyQualifiedName: DecontrastMask, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!81 &955230416
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1674,7 +1690,7 @@ Camera:
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 2
+  m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
@@ -2782,6 +2798,12 @@ MonoBehaviour:
       PublicKeyToken=null
   - assemblyQualifiedName: MoveTexture, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  - assemblyQualifiedName: BlurMask, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - assemblyQualifiedName: TestShader, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - assemblyQualifiedName: DecontrastMask, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!1 &1716010260
 GameObject:
   m_ObjectHideFlags: 0
@@ -3269,6 +3291,12 @@ MonoBehaviour:
       PublicKeyToken=null
   - assemblyQualifiedName: MoveTexture, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  - assemblyQualifiedName: BlurMask, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - assemblyQualifiedName: TestShader, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - assemblyQualifiedName: DecontrastMask, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!1 &1939730292
 GameObject:
   m_ObjectHideFlags: 0
@@ -3406,7 +3434,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   filePathLeft: SamplePatient1/patient1_2003_left.txt
   filePathRight: SamplePatient1/patient1_2003_right.txt
-  saveMask: 1
+  saveMask: 0
   masksReadyEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -4115,6 +4143,12 @@ MonoBehaviour:
       PublicKeyToken=null
   - assemblyQualifiedName: MoveTexture, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  - assemblyQualifiedName: BlurMask, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - assemblyQualifiedName: TestShader, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  - assemblyQualifiedName: DecontrastMask, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!1 &2137373086
 GameObject:
   m_ObjectHideFlags: 0
@@ -4333,3 +4367,87 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2143922398}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &4463284560158214672
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5389030419936658391, guid: e7e43ca3908f62345a6c0c10b69020c6,
+        type: 3}
+      propertyPath: m_Name
+      value: OptimizedTree
+      objectReference: {fileID: 0}
+    - target: {fileID: 6359843644587622739, guid: e7e43ca3908f62345a6c0c10b69020c6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6359843644587622739, guid: e7e43ca3908f62345a6c0c10b69020c6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6359843644587622739, guid: e7e43ca3908f62345a6c0c10b69020c6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.128
+      objectReference: {fileID: 0}
+    - target: {fileID: 6359843644587622739, guid: e7e43ca3908f62345a6c0c10b69020c6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6359843644587622739, guid: e7e43ca3908f62345a6c0c10b69020c6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6359843644587622739, guid: e7e43ca3908f62345a6c0c10b69020c6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6359843644587622739, guid: e7e43ca3908f62345a6c0c10b69020c6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6359843644587622739, guid: e7e43ca3908f62345a6c0c10b69020c6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6359843644587622739, guid: e7e43ca3908f62345a6c0c10b69020c6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6359843644587622739, guid: e7e43ca3908f62345a6c0c10b69020c6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6359843644587622739, guid: e7e43ca3908f62345a6c0c10b69020c6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6359843644587622739, guid: e7e43ca3908f62345a6c0c10b69020c6,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6359843644587622739, guid: e7e43ca3908f62345a6c0c10b69020c6,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6359843644587622739, guid: e7e43ca3908f62345a6c0c10b69020c6,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e7e43ca3908f62345a6c0c10b69020c6, type: 3}
