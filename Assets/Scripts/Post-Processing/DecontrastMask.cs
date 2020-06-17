@@ -119,11 +119,11 @@ public sealed class DecontrastMaskRenderer : PostProcessEffectRenderer<Decontras
         else
         {
             sheet.properties.SetInt("eye", eye);
+            sheet.properties.SetInt("screen", screen);
             sheet.properties.SetVector("gaze", gazeDirectionStraight);
             sheet.properties.SetFloat("scaleFactor", scaleFactor);
             sheet.properties.SetFloat("aspect", aspect);
             sheet.properties.SetVector("offset", offset);
-            sheet.properties.SetInt("screen", screen);
         }
         context.command.BlitFullscreenTriangle(context.source, context.destination, sheet, 0);
     }

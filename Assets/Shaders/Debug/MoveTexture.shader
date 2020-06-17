@@ -19,8 +19,6 @@ Shader "Debug/MoveTexture"{
 
     int screen;
 
-    float2 cutoff;
-
     float2 offset;
 
     float3 gaze;
@@ -29,11 +27,6 @@ Shader "Debug/MoveTexture"{
 
     float scaleFactor;
     float aspect;
-
-    float distance;
-
-    float circleRadius;
-    float4 circleColor;
 
     float2 samplePoint;
 

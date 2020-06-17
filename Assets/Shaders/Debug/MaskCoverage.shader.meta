@@ -3,7 +3,7 @@ guid: 807153b94e733dc438f34bce11238e0f
 ShaderImporter:
   externalObjects: {}
   defaultTextures:
-  - _MaskTexture: {fileID: 2800000, guid: e4fb005bcf11d4396bbcb212a4be92c7, type: 3}
+  - _MaskTexture: {fileID: 2800000, guid: f86e0d72940902e48bc29382a772916d, type: 3}
   nonModifiableTextures: []
   userData: 
   assetBundleName: 

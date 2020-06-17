@@ -39,7 +39,7 @@ Shader "Impairment/DecontrastMask"{
     float2 samplePoint;
 
     // draw a circle where the gaze goes
-    float4 FragDefault(VaryingsDefault i) : SV_Target
+    float4 DecontrastMask(VaryingsDefault i) : SV_Target
     {
         // gaze is in object coords; first turn into world coords, then use the view projection matrix (VP) to get clip coords;
         // normally we could do this with MVP, but MVP is no longer :(
@@ -92,7 +92,7 @@ Shader "Impairment/DecontrastMask"{
             HLSLPROGRAM
 
             #pragma vertex VertDefault
-            #pragma fragment FragDefault
+            #pragma fragment DecontrastMask
             
             ENDHLSL
         }

@@ -1631,7 +1631,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 955230413}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
@@ -1648,7 +1648,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 955230413}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
   m_Name: 
@@ -3478,8 +3478,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a566a8721eb3c6439247fc2c018afb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePathLeft: SamplePatient1/patient1_2013_left.txt
-  filePathRight: SamplePatient1/patient1_2013_right.txt
+  filePathLeft: SamplePatient1/patient1_2013_left_added_first_last.txt
+  filePathRight: SamplePatient1/patient1_2013_right_added_first_last.txt
   saveMask: 1
   masksReadyEvent:
     m_PersistentCalls:

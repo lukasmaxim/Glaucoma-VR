@@ -25,7 +25,7 @@ public class MaskGenerator
         ReadFile();
         InvertValues();
         GenerateMasks();
-        ResizeMasks();
+        //ResizeMasks();
         SaveMasks();
         return masks;
     }
