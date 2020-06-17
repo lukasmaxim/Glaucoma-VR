@@ -34,19 +34,19 @@ MonoBehaviour:
     value: 1
   maskLeftContext:
     overrideState: 1
-    value: {fileID: 2800000, guid: 632e4ab0347e60243bf3f5b543c40532, type: 3}
+    value: {fileID: 2800000, guid: d1270367f92e5bf459b3781ee8bcd9b5, type: 3}
     defaultState: 1
   maskLeftFocus:
     overrideState: 1
-    value: {fileID: 2800000, guid: 0855c35e18c6b5940ab0c29ef411af50, type: 3}
+    value: {fileID: 2800000, guid: 85d538d49753aac449b0a799c238dd47, type: 3}
     defaultState: 1
   maskRightContext:
     overrideState: 1
-    value: {fileID: 2800000, guid: ec9da950542dfc94f8ca4a4ea32c33a7, type: 3}
+    value: {fileID: 2800000, guid: ecb87532074850945bb5c978a83d121a, type: 3}
     defaultState: 1
   maskRightFocus:
     overrideState: 1
-    value: {fileID: 2800000, guid: 3bc1efec47bdeab46aeb598235e31397, type: 3}
+    value: {fileID: 2800000, guid: eb9c665083a11fe4db827ac7a6416bca, type: 3}
     defaultState: 1
   gazeDirectionStraight: {x: 0, y: 0, z: 1}
   eyeLeft: -1
@@ -106,25 +106,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 549d72c49f89d9243a3be7aac3df6830, type: 3}
   m_Name: DecontrastMask
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
   maskLeftContext:
     overrideState: 1
-    value: {fileID: 2800000, guid: 632e4ab0347e60243bf3f5b543c40532, type: 3}
+    value: {fileID: 2800000, guid: d1270367f92e5bf459b3781ee8bcd9b5, type: 3}
     defaultState: 1
   maskLeftFocus:
     overrideState: 1
-    value: {fileID: 2800000, guid: 0855c35e18c6b5940ab0c29ef411af50, type: 3}
+    value: {fileID: 2800000, guid: 85d538d49753aac449b0a799c238dd47, type: 3}
     defaultState: 1
   maskRightContext:
     overrideState: 1
-    value: {fileID: 2800000, guid: ec9da950542dfc94f8ca4a4ea32c33a7, type: 3}
+    value: {fileID: 2800000, guid: ecb87532074850945bb5c978a83d121a, type: 3}
     defaultState: 1
   maskRightFocus:
     overrideState: 1
-    value: {fileID: 2800000, guid: 3bc1efec47bdeab46aeb598235e31397, type: 3}
+    value: {fileID: 2800000, guid: eb9c665083a11fe4db827ac7a6416bca, type: 3}
     defaultState: 1
   gazeDirectionStraight: {x: 0, y: 0, z: 1}
   eyeLeft: -1

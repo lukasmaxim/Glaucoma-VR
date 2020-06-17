@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -8,11 +7,12 @@ public class MaskGenerator
 {
     string inputPath = Application.dataPath + "/PatientData/";
     // TODO replace with ArrayLists for dynamic resizing if input is not 10x10
-    int[,] input, invertedInput;
-    int highestValue = 33;
+    int[,] input;
+    double[,] invertedInput;
+    double highestValue = Math.Log10(33);
     Texture2D blurMaskContext, blurMaskFocus;
     List<Texture2D> masks;
-    Tuple<int, int> contextDimensions = new Tuple<int, int>(1600, 1600);
+    Tuple<int, int> contextDimensions = new Tuple<int, int>(1440, 1600);
     Tuple<int, int> focusDimensions = new Tuple<int, int>(2048, 2048);
     string filePath = null;
     bool save = false;
@@ -55,13 +55,13 @@ public class MaskGenerator
     void InvertValues()
     {
         // TODO replace with ArrayLists for dynamic resizing if input is not 10x10
-        invertedInput = new int[10, 10];
+        invertedInput = new double[10, 10];
 
         for (int i = 0; i < invertedInput.GetLength(0); i++)
         {
             for (int j = 0; j < invertedInput.GetLength(1); j++)
             {
-                invertedInput[i, j] = highestValue - input[i, j];
+                invertedInput[i, j] = highestValue - Math.Log10(input[i, j]);
             }
         }
     }
@@ -83,8 +83,8 @@ public class MaskGenerator
             {
                 for (int j = 0; j < currentMask.height; j++)
                 {
-                    float alpha = (float) invertedInput[i, j] / highestValue;
-                    Color color = new Color(1, 1, 1, alpha);
+                    double alpha = invertedInput[i, j] / highestValue;
+                    Color color = new Color(1, 1, 1, (float) alpha);
                     currentMask.SetPixel(i, currentMask.height - j - 1, color);
                 }
             }
@@ -94,8 +94,8 @@ public class MaskGenerator
     // scales 2 masks to specified dimensions
     void ResizeMasks()
     {
-        TextureScale.Bilinear(masks[0], contextDimensions.Item1, contextDimensions.Item2);
-        TextureScale.Bilinear(masks[1], focusDimensions.Item1, focusDimensions.Item2);
+        TextureScale.Point(masks[0], contextDimensions.Item1, contextDimensions.Item2);
+        TextureScale.Point(masks[1], focusDimensions.Item1, focusDimensions.Item2);
     }
 
     // debug mask save
@@ -118,5 +118,10 @@ public class MaskGenerator
                 }
             }
         }
+    }
+
+    void ResizeImage()
+    {
+
     }
 }
