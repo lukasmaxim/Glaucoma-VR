@@ -2,7 +2,7 @@ Shader "Impairment/DecontrastMask"{
 
     Properties
     {
-        [Slider]_Contrast ("Contrast", Range(0, 1)) = 0.5
+        [Slider]_ContrastMultiplier ("Contrast", Range(0, 1)) = 1
     }
 
     HLSLINCLUDE
@@ -14,7 +14,7 @@ Shader "Impairment/DecontrastMask"{
     TEXTURE2D_SAMPLER2D(_MaskTexLeftFocus, sampler_MaskTexLeftFocus);
     TEXTURE2D_SAMPLER2D(_MaskTexRightContext, sampler_MaskTexRightContext);
     TEXTURE2D_SAMPLER2D(_MaskTexRightFocus, sampler_MaskTexRightFocus);
-    float _Contrast;
+    float _ContrastMultiplier;
     float maskAlpha;
 
     int screen;
@@ -67,7 +67,7 @@ Shader "Impairment/DecontrastMask"{
         }
         else
         {
-            if(eye == 1)
+            if(eye == -1)
             {
                 samplePoint = float2(i.texcoord.x * aspect * 1/scaleFactor + -gazeNormalized.x * aspect * 1/scaleFactor + offset.x, i.texcoord.y * 1/scaleFactor  + -gazeNormalized.y * 1/scaleFactor + offset.y);
                 maskAlpha = SAMPLE_TEXTURE2D(_MaskTexLeftFocus, sampler_MaskTexLeftFocus, samplePoint).a;
@@ -79,7 +79,7 @@ Shader "Impairment/DecontrastMask"{
             }
         }
 
-        return lerp(originalColor, lerp(half4(0.5,0.5,0.5,0), originalColor, _Contrast), maskAlpha);
+        return (originalColor - 0.5f) * clamp(max(1-maskAlpha*_ContrastMultiplier, 0), 0, 1) + 0.5f;
     }
 
     ENDHLSL

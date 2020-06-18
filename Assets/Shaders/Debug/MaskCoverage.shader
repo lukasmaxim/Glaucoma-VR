@@ -48,33 +48,34 @@
 		float4 originalColor = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.texcoord);
 
 		// TODO maybe exhange with method call
-		if(screen == -1)
+		if(screen == -1) // context eye
 		{
-			if(eye == -1)
+			if(eye == -1) // left
 			{
 				samplePoint = float2(i.texcoord.x * 1/scaleFactor + -gazeNormalized.x * 1/scaleFactor + offset.x, i.texcoord.y * 1/scaleFactor  + -gazeNormalized.y * 1/scaleFactor + offset.y);
 				maskAlpha = SAMPLE_TEXTURE2D(_MaskTexLeftContext, sampler_MaskTexLeftContext, samplePoint).a;
 			}
-			else
+			else // right
 			{
 				samplePoint = float2(i.texcoord.x * 1/scaleFactor + -gazeNormalized.x * 1/scaleFactor + offset.x, i.texcoord.y * 1/scaleFactor  + -gazeNormalized.y * 1/scaleFactor + offset.y);
 				maskAlpha = SAMPLE_TEXTURE2D(_MaskTexRightContext, sampler_MaskTexRightContext, samplePoint).a;
 			}
 		}
-		else
+		else // focus
 		{
-			if(eye == -1)
+			if(eye == -1) // left
 			{
 				samplePoint = float2(i.texcoord.x * aspect * 1/scaleFactor + -gazeNormalized.x * aspect * 1/scaleFactor + offset.x, i.texcoord.y * 1/scaleFactor  + -gazeNormalized.y * 1/scaleFactor + offset.y);
 				maskAlpha = SAMPLE_TEXTURE2D(_MaskTexLeftFocus, sampler_MaskTexLeftFocus, samplePoint).a;
 			}
-			else
+			else // right
 			{
 				samplePoint = float2(i.texcoord.x * aspect * 1/scaleFactor + -gazeNormalized.x * aspect * 1/scaleFactor + offset.x, i.texcoord.y * 1/scaleFactor  + -gazeNormalized.y * 1/scaleFactor + offset.y);
 				maskAlpha = SAMPLE_TEXTURE2D(_MaskTexRightFocus, sampler_MaskTexRightFocus, samplePoint).a;
 			}
 		}
 
+		// alpha cutoff so everything above the threshold is clamped to 1, which creates a binary mask
 		if(maskAlpha > _AlphaCutoff)
 		{
 			maskAlpha = 1;

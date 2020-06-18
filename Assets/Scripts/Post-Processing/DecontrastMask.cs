@@ -13,6 +13,8 @@ public sealed class DecontrastMask : PostProcessEffectSettings
     public TextureParameter maskLeftFocus = new TextureParameter { value = null };
     public TextureParameter maskRightContext = new TextureParameter { value = null };
     public TextureParameter maskRightFocus = new TextureParameter { value = null };
+    [Range(0.5f, 10.0f)]
+    public FloatParameter contrastMultiplier = new FloatParameter { value = 1.0f };
 
     // default gaze direction (straight from cam)
     public Vector3 gazeDirectionStraight = new Vector3(0.0f, 0.0f, 1.0f);
@@ -115,6 +117,7 @@ public sealed class DecontrastMaskRenderer : PostProcessEffectRenderer<Decontras
             sheet.properties.SetFloat("scaleFactor", scaleFactor);
             sheet.properties.SetFloat("aspect", aspect);
             sheet.properties.SetVector("offset", offset);
+            sheet.properties.SetFloat("_ContrastMultiplier", settings.contrastMultiplier);
         }
         else
         {
@@ -124,6 +127,8 @@ public sealed class DecontrastMaskRenderer : PostProcessEffectRenderer<Decontras
             sheet.properties.SetFloat("scaleFactor", scaleFactor);
             sheet.properties.SetFloat("aspect", aspect);
             sheet.properties.SetVector("offset", offset);
+            sheet.properties.SetFloat("_ContrastMultiplier", settings.contrastMultiplier);
+
         }
         context.command.BlitFullscreenTriangle(context.source, context.destination, sheet, 0);
     }
