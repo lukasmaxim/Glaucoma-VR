@@ -4,7 +4,11 @@ Shader "Impairment/BoxBlurMask"{
 
     #include "Packages/com.unity.postprocessing/PostProcessing/Shaders/StdLib.hlsl"
 
-    int _KernelSize;
+    #define PI 3.14159265359
+
+    int _KernelSize1;
+    int _KernelSize2;
+    int _KernelSize3;
     
     TEXTURE2D_SAMPLER2D(_MainTex, sampler_MainTex);
     float2 _MainTex_TexelSize;
@@ -70,28 +74,98 @@ Shader "Impairment/BoxBlurMask"{
             }
         }
 
-        // box blur
-        //_KernelSize = 20;
-        // TODO this whole thing causes weird artifacts...
-        _KernelSize = clamp((int)(maskAlpha* 30), 1, 30);
+        // box blur with samples
+        // _KernelSize = clamp(round(maskAlpha* 50), 2, 50);
 
-        half3 sum = half3(0.0, 0.0, 0.0);
+        // half3 sum = half3(0.0, 0.0, 0.0);
 
-        int upper = ((_KernelSize - 1) / 2);
-        int lower = -upper;
+        // int upper = ((_KernelSize - 1) / 2);
+        // int lower = -upper;
 
-        for (int x = lower; x <= upper; ++x)
+
+        // for (int x = lower; x <= upper; x+=samplefacter)
+        // {
+        //     for (int y = lower; y <= upper; y+=samplefacter)
+        //     {
+        //         float2 offsetBlur = float2(_MainTex_TexelSize.x * x, _MainTex_TexelSize.y * y);
+        //         sum += SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.texcoord + offsetBlur);
+        //     }
+        // }
+
+        _KernelSize1 = 5;
+        _KernelSize2 = 15;
+        _KernelSize3 = 30;
+
+        half3 sum1 = half3(0.0, 0.0, 0.0);
+        int upper1 = ((_KernelSize1 - 1) / 2);
+        int lower1 = -upper1;
+
+        for (int x = lower1; x <= upper1; ++x)
         {
-            for (int y = lower; y <= upper; ++y)
+            for (int y = lower1; y <= upper1; ++y)
             {
-                float2 offsetBlur = float2(_MainTex_TexelSize.x * x, _MainTex_TexelSize.y * y);
-                sum += SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.texcoord + offsetBlur);
+                float2 offsetBlur1 = float2(_MainTex_TexelSize.x * x, _MainTex_TexelSize.y * y);
+                sum1 += SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.texcoord + offsetBlur1);
             }
         }
 
-        sum /= (_KernelSize * _KernelSize);
+        sum1 /= (_KernelSize1 * _KernelSize1);
 
-        return float4(sum, 1.0f);
+        half3 sum2 = half3(0.0, 0.0, 0.0);
+        int upper2 = ((_KernelSize2 - 1) / 2);
+        int lower2 = -upper2;
+
+        for (int x = lower2; x <= upper2; ++x)
+        {
+            for (int y = lower2; y <= upper2; ++y)
+            {
+                float2 offsetBlur2 = float2(_MainTex_TexelSize.x * x, _MainTex_TexelSize.y * y);
+                sum2 += SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.texcoord + offsetBlur2);
+            }
+        }
+
+        sum2 /= (_KernelSize2 * _KernelSize2);
+
+        half3 sum3 = half3(0.0, 0.0, 0.0);
+        int upper3 = ((_KernelSize3 - 1) / 2);
+        int lower3 = -upper3;
+
+        for (int x = lower3; x <= upper3; ++x)
+        {
+            for (int y = lower3; y <= upper3; ++y)
+            {
+                float2 offsetBlur3 = float2(_MainTex_TexelSize.x * x, _MainTex_TexelSize.y * y);
+                sum3 += SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.texcoord + offsetBlur3);
+            }
+        }
+
+        sum3 /= (_KernelSize3 * _KernelSize3);
+
+        if (maskAlpha <= 0.33) {
+            return lerp(originalColor, float4(sum1,1), maskAlpha / 0.33);
+        }
+        else if (maskAlpha <= 0.66) {
+            return lerp(float4(sum1,1), float4(sum2,1), (maskAlpha - 0.33) / 0.33);
+        }
+        else {
+            return lerp(float4(sum2,1), float4(sum3,1), (maskAlpha - 0.66) / 0.33);
+        }
+            
+
+
+        /*
+        int phi = PI * maskAlpha;
+        int x1 = clamp(sin(phi), 0, 1);
+        int x2 = clamp(sin(phi-(PI/4)), 0, 1);
+        int x3 = clamp(sin(phi-(PI/2)), 0, 1);
+
+        x1 = 0.2f;
+
+        float xtot = x1 + x2 + x3 + 0.00000001f;
+
+
+        return (float4(sum1, 1)*(x1/xtot)) + (float4(sum2, 1) * (x2/xtot)) + (float4(sum3, 1) * (x3/xtot));
+        */
     }
 
     ENDHLSL

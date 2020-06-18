@@ -366,3 +366,7 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,unity,windows,node,python
+
+### Lukas' stuff ###
+# Exlude videos
+/Assets/Videos/

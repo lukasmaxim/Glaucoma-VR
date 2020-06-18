@@ -18,7 +18,7 @@ public sealed class ContrastBrightnessMask : PostProcessEffectSettings
     [Range(0.5f, 10.0f)]
     public FloatParameter contrastMultiplier = new FloatParameter { value = 1.0f };
     [Range(-1.0f, 1.0f)]
-    public FloatParameter brightnessModifier = new FloatParameter { value = 1.0f };
+    public FloatParameter brightnessModifier = new FloatParameter { value = 0.0f };
 
     // default gaze direction (straight from cam)
     public Vector3 gazeDirectionStraight = new Vector3(0.0f, 0.0f, 1.0f);
