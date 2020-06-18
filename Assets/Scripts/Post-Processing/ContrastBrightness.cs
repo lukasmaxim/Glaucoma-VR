@@ -5,16 +5,20 @@ using UnityEngine.Rendering.PostProcessing;
 using Varjo;
 
 [Serializable]
-[PostProcess(typeof(DecontrastMaskRenderer), PostProcessEvent.AfterStack, "Impairment/DecontrastMask")]
-public sealed class DecontrastMask : PostProcessEffectSettings
+[PostProcess(typeof(ContrastBrightnessMaskRenderer), PostProcessEvent.AfterStack, "Impairment/ContrastBrightnessMask")]
+public sealed class ContrastBrightnessMask : PostProcessEffectSettings
 {
-    // // masks
+    // masks
     public TextureParameter maskLeftContext = new TextureParameter { value = null };
     public TextureParameter maskLeftFocus = new TextureParameter { value = null };
     public TextureParameter maskRightContext = new TextureParameter { value = null };
     public TextureParameter maskRightFocus = new TextureParameter { value = null };
+    
+    // mask settings
     [Range(0.5f, 10.0f)]
     public FloatParameter contrastMultiplier = new FloatParameter { value = 1.0f };
+    [Range(-1.0f, 1.0f)]
+    public FloatParameter brightnessModifier = new FloatParameter { value = 1.0f };
 
     // default gaze direction (straight from cam)
     public Vector3 gazeDirectionStraight = new Vector3(0.0f, 0.0f, 1.0f);
@@ -44,7 +48,7 @@ public sealed class DecontrastMask : PostProcessEffectSettings
     public FloatParameter offsetFocusRightY = new FloatParameter { value = -0.582f };
 }
 
-public sealed class DecontrastMaskRenderer : PostProcessEffectRenderer<DecontrastMask>
+public sealed class ContrastBrightnessMaskRenderer : PostProcessEffectRenderer<ContrastBrightnessMask>
 {
     // dummy transform to transform gaze from object to world coords
     Transform transform = GameObject.Find("Dummy Transform").transform;
@@ -118,6 +122,7 @@ public sealed class DecontrastMaskRenderer : PostProcessEffectRenderer<Decontras
             sheet.properties.SetFloat("aspect", aspect);
             sheet.properties.SetVector("offset", offset);
             sheet.properties.SetFloat("_ContrastMultiplier", settings.contrastMultiplier);
+            sheet.properties.SetFloat("_BrightnessModifier", settings.brightnessModifier);
         }
         else
         {
@@ -128,6 +133,7 @@ public sealed class DecontrastMaskRenderer : PostProcessEffectRenderer<Decontras
             sheet.properties.SetFloat("aspect", aspect);
             sheet.properties.SetVector("offset", offset);
             sheet.properties.SetFloat("_ContrastMultiplier", settings.contrastMultiplier);
+            sheet.properties.SetFloat("_BrightnessModifier", settings.brightnessModifier);
 
         }
         context.command.BlitFullscreenTriangle(context.source, context.destination, sheet, 0);
@@ -140,7 +146,7 @@ public sealed class DecontrastMaskRenderer : PostProcessEffectRenderer<Decontras
         if (!set)
         {
             this.context = context;
-            this.sheet = context.propertySheets.Get(Shader.Find("Impairment/DecontrastMask"));
+            this.sheet = context.propertySheets.Get(Shader.Find("Impairment/ContrastBrightnessMask"));
             this.sheet.properties.SetTexture("_MaskTexLeftContext", settings.maskLeftContext);
             this.sheet.properties.SetTexture("_MaskTexLeftFocus", settings.maskLeftFocus);
             this.sheet.properties.SetTexture("_MaskTexRightContext", settings.maskRightContext);

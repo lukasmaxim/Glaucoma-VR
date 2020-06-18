@@ -124,25 +124,7 @@ MonoBehaviour:
   offsetFocusRightY:
     overrideState: 0
     value: -0.582
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e6292b2c06870d4495f009f912b9600, type: 3}
-  m_Name: VarjoCamera Profile 1
-  m_EditorClassIdentifier: 
-  settings:
-  - {fileID: -7750600548938789138}
-  - {fileID: -7967809976871494419}
-  - {fileID: 4775983970802071063}
-  - {fileID: 4361859976997721283}
-  - {fileID: 3844966274942144856}
---- !u!114 &3844966274942144856
+--- !u!114 &-7101374044291746504
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -151,10 +133,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 549d72c49f89d9243a3be7aac3df6830, type: 3}
-  m_Name: DecontrastMask
+  m_Script: {fileID: 11500000, guid: 904d517b74ee10b428e4db65f35d0802, type: 3}
+  m_Name: BoxBlurMask
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
@@ -174,6 +156,235 @@ MonoBehaviour:
     overrideState: 1
     value: {fileID: 2800000, guid: 7716fc29474c388418dd9afff85efb34, type: 3}
     defaultState: 1
+  gazeDirectionStraight: {x: 0, y: 0, z: 1}
+  eyeLeft: -1
+  eyeRight: 1
+  screenContext: -1
+  aspectContext: 0.9
+  scaleFactorContext: 1
+  offsetContextLeftX: 0
+  offsetContextRightX: 0
+  offsetContextLeftY: 0
+  offsetContextRightY: 0
+  screenFocus: 1
+  aspectFocus: 1.77
+  scaleFactorFocus:
+    overrideState: 0
+    value: 6.093
+  offsetFocusLeftX:
+    overrideState: 0
+    value: 0.354
+  offsetFocusRightX:
+    overrideState: 0
+    value: -0.645
+  offsetFocusLeftY:
+    overrideState: 0
+    value: 0.418
+  offsetFocusRightY:
+    overrideState: 0
+    value: -0.582
+--- !u!114 &-4134246431472213977
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: ContrastBrightnessMask
+  m_EditorClassIdentifier: Assembly-CSharp::ContrastBrightnessMask
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  maskLeftContext:
+    overrideState: 1
+    value: {fileID: 2800000, guid: f86e0d72940902e48bc29382a772916d, type: 3}
+    defaultState: 1
+  maskLeftFocus:
+    overrideState: 1
+    value: {fileID: 2800000, guid: d841c586d477ecd44b73e0ad6c89b18a, type: 3}
+    defaultState: 1
+  maskRightContext:
+    overrideState: 1
+    value: {fileID: 2800000, guid: 867074e4e5275a847880bbd56a82e315, type: 3}
+    defaultState: 1
+  maskRightFocus:
+    overrideState: 1
+    value: {fileID: 2800000, guid: 7716fc29474c388418dd9afff85efb34, type: 3}
+    defaultState: 1
+  contrastMultiplier:
+    overrideState: 1
+    value: 1.8
+  brightnessModifier:
+    overrideState: 1
+    value: 1
+  gazeDirectionStraight: {x: 0, y: 0, z: 1}
+  eyeLeft: -1
+  eyeRight: 1
+  screenContext: -1
+  aspectContext: 0.9
+  scaleFactorContext: 1
+  offsetContextLeftX: 0
+  offsetContextRightX: 0
+  offsetContextLeftY: 0
+  offsetContextRightY: 0
+  screenFocus: 1
+  aspectFocus: 1.77
+  scaleFactorFocus:
+    overrideState: 0
+    value: 6.093
+  offsetFocusLeftX:
+    overrideState: 0
+    value: 0.354
+  offsetFocusRightX:
+    overrideState: 0
+    value: -0.645
+  offsetFocusLeftY:
+    overrideState: 0
+    value: 0.418
+  offsetFocusRightY:
+    overrideState: 0
+    value: -0.582
+--- !u!114 &-1379019078096017555
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: DecontrastMask
+  m_EditorClassIdentifier: Assembly-CSharp::DecontrastMask
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  maskLeftContext:
+    overrideState: 1
+    value: {fileID: 2800000, guid: f86e0d72940902e48bc29382a772916d, type: 3}
+    defaultState: 1
+  maskLeftFocus:
+    overrideState: 1
+    value: {fileID: 2800000, guid: d841c586d477ecd44b73e0ad6c89b18a, type: 3}
+    defaultState: 1
+  maskRightContext:
+    overrideState: 1
+    value: {fileID: 2800000, guid: 867074e4e5275a847880bbd56a82e315, type: 3}
+    defaultState: 1
+  maskRightFocus:
+    overrideState: 1
+    value: {fileID: 2800000, guid: 7716fc29474c388418dd9afff85efb34, type: 3}
+    defaultState: 1
+  contrastMultiplier:
+    overrideState: 1
+    value: 1
+  brightnessModifier:
+    overrideState: 1
+    value: 1
+  gazeDirectionStraight: {x: 0, y: 0, z: 1}
+  eyeLeft: -1
+  eyeRight: 1
+  screenContext: -1
+  aspectContext: 0.9
+  scaleFactorContext: 1
+  offsetContextLeftX: 0
+  offsetContextRightX: 0
+  offsetContextLeftY: 0
+  offsetContextRightY: 0
+  screenFocus: 1
+  aspectFocus: 1.77
+  scaleFactorFocus:
+    overrideState: 0
+    value: 6.093
+  offsetFocusLeftX:
+    overrideState: 0
+    value: 0.354
+  offsetFocusRightX:
+    overrideState: 0
+    value: -0.645
+  offsetFocusLeftY:
+    overrideState: 0
+    value: 0.418
+  offsetFocusRightY:
+    overrideState: 0
+    value: -0.582
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e6292b2c06870d4495f009f912b9600, type: 3}
+  m_Name: VarjoCamera Profile 1
+  m_EditorClassIdentifier: 
+  settings:
+  - {fileID: -7967809976871494419}
+  - {fileID: 4775983970802071063}
+  - {fileID: 4361859976997721283}
+  - {fileID: 1376890611783882382}
+  - {fileID: -7101374044291746504}
+--- !u!114 &1376890611783882382
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9faf2d0dda5451f44b1d46cc208c4864, type: 3}
+  m_Name: BoxBlur
+  m_EditorClassIdentifier: 
+  active: 0
+  enabled:
+    overrideState: 1
+    value: 1
+  kernelSize:
+    overrideState: 1
+    value: 20.8
+--- !u!114 &3844966274942144856
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 549d72c49f89d9243a3be7aac3df6830, type: 3}
+  m_Name: DecontrastMask
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  maskLeftContext:
+    overrideState: 1
+    value: {fileID: 2800000, guid: f86e0d72940902e48bc29382a772916d, type: 3}
+    defaultState: 1
+  maskLeftFocus:
+    overrideState: 1
+    value: {fileID: 2800000, guid: d841c586d477ecd44b73e0ad6c89b18a, type: 3}
+    defaultState: 1
+  maskRightContext:
+    overrideState: 1
+    value: {fileID: 2800000, guid: 867074e4e5275a847880bbd56a82e315, type: 3}
+    defaultState: 1
+  maskRightFocus:
+    overrideState: 1
+    value: {fileID: 2800000, guid: 7716fc29474c388418dd9afff85efb34, type: 3}
+    defaultState: 1
+  contrastMultiplier:
+    overrideState: 1
+    value: 1
   gazeDirectionStraight: {x: 0, y: 0, z: 1}
   eyeLeft: -1
   eyeRight: 1
@@ -298,4 +509,66 @@ MonoBehaviour:
     value: 0.418
   offsetFocusRightY:
     overrideState: 1
+    value: -0.582
+--- !u!114 &8261465831610986367
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 146bbc469c7a75c4aa601cb30de49490, type: 3}
+  m_Name: BrightnessMask
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  maskLeftContext:
+    overrideState: 1
+    value: {fileID: 2800000, guid: f86e0d72940902e48bc29382a772916d, type: 3}
+    defaultState: 1
+  maskLeftFocus:
+    overrideState: 1
+    value: {fileID: 2800000, guid: d841c586d477ecd44b73e0ad6c89b18a, type: 3}
+    defaultState: 1
+  maskRightContext:
+    overrideState: 1
+    value: {fileID: 2800000, guid: 867074e4e5275a847880bbd56a82e315, type: 3}
+    defaultState: 1
+  maskRightFocus:
+    overrideState: 1
+    value: {fileID: 2800000, guid: 7716fc29474c388418dd9afff85efb34, type: 3}
+    defaultState: 1
+  brightnessModifier:
+    overrideState: 1
+    value: -0.256
+  gazeDirectionStraight: {x: 0, y: 0, z: 1}
+  eyeLeft: -1
+  eyeRight: 1
+  screenContext: -1
+  aspectContext: 0.9
+  scaleFactorContext: 1
+  offsetContextLeftX: 0
+  offsetContextRightX: 0
+  offsetContextLeftY: 0
+  offsetContextRightY: 0
+  screenFocus: 1
+  aspectFocus: 1.77
+  scaleFactorFocus:
+    overrideState: 0
+    value: 6.093
+  offsetFocusLeftX:
+    overrideState: 0
+    value: 0.354
+  offsetFocusRightX:
+    overrideState: 0
+    value: -0.645
+  offsetFocusLeftY:
+    overrideState: 0
+    value: 0.418
+  offsetFocusRightY:
+    overrideState: 0
     value: -0.582

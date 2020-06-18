@@ -1,28 +1,24 @@
-Shader "Impairment/DecontrastMask"{
-
-    Properties
-    {
-        [Slider]_ContrastMultiplier ("Contrast", Range(0, 1)) = 1
-    }
+Shader "Impairment/BoxBlurMask"{
 
     HLSLINCLUDE
 
     #include "Packages/com.unity.postprocessing/PostProcessing/Shaders/StdLib.hlsl"
+
+    int _KernelSize;
     
     TEXTURE2D_SAMPLER2D(_MainTex, sampler_MainTex);
+    float2 _MainTex_TexelSize;
     TEXTURE2D_SAMPLER2D(_MaskTexLeftContext, sampler_MaskTexLeftContext);
     TEXTURE2D_SAMPLER2D(_MaskTexLeftFocus, sampler_MaskTexLeftFocus);
     TEXTURE2D_SAMPLER2D(_MaskTexRightContext, sampler_MaskTexRightContext);
     TEXTURE2D_SAMPLER2D(_MaskTexRightFocus, sampler_MaskTexRightFocus);
-    float _ContrastMultiplier;
     float maskAlpha;
 
     int screen;
     int eye;
 
-    float2 cutoff;
-
     float2 offset;
+    float2 offsetBlur;
 
     float3 gaze;
     float4 gazeProjected;
@@ -31,15 +27,10 @@ Shader "Impairment/DecontrastMask"{
     float scaleFactor;
     float aspect;
 
-    float distance;
-
-    float circleRadius;
-    float4 circleColor;
-
     float2 samplePoint;
 
     // draw a circle where the gaze goes
-    float4 DecontrastMask(VaryingsDefault i) : SV_Target
+    float4 FragDefault(VaryingsDefault i) : SV_Target
     {
         // gaze is in object coords; first turn into world coords, then use the view projection matrix (VP) to get clip coords;
         // normally we could do this with MVP, but MVP is no longer :(
@@ -79,7 +70,28 @@ Shader "Impairment/DecontrastMask"{
             }
         }
 
-        return (originalColor - 0.5f) * clamp(max(1-maskAlpha*_ContrastMultiplier, 0), 0, 1) + 0.5f;
+        // box blur
+        //_KernelSize = 20;
+        // TODO this whole thing causes weird artifacts...
+        _KernelSize = clamp((int)(maskAlpha* 30), 1, 30);
+
+        half3 sum = half3(0.0, 0.0, 0.0);
+
+        int upper = ((_KernelSize - 1) / 2);
+        int lower = -upper;
+
+        for (int x = lower; x <= upper; ++x)
+        {
+            for (int y = lower; y <= upper; ++y)
+            {
+                float2 offsetBlur = float2(_MainTex_TexelSize.x * x, _MainTex_TexelSize.y * y);
+                sum += SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.texcoord + offsetBlur);
+            }
+        }
+
+        sum /= (_KernelSize * _KernelSize);
+
+        return float4(sum, 1.0f);
     }
 
     ENDHLSL
@@ -92,7 +104,7 @@ Shader "Impairment/DecontrastMask"{
             HLSLPROGRAM
 
             #pragma vertex VertDefault
-            #pragma fragment DecontrastMask
+            #pragma fragment FragDefault
             
             ENDHLSL
         }

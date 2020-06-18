@@ -5,8 +5,8 @@ using UnityEngine.Rendering.PostProcessing;
 using Varjo;
 
 [Serializable]
-[PostProcess(typeof(BlurMaskRenderer), PostProcessEvent.AfterStack, "Impairment/BlurMask")]
-public sealed class BlurMask : PostProcessEffectSettings
+[PostProcess(typeof(BoxBlurMaskRenderer), PostProcessEvent.AfterStack, "Impairment/BoxBlurMask")]
+public sealed class BoxBlurMask : PostProcessEffectSettings
 {
     // // masks
     public TextureParameter maskLeftContext = new TextureParameter { value = null };
@@ -42,7 +42,7 @@ public sealed class BlurMask : PostProcessEffectSettings
     public FloatParameter offsetFocusRightY = new FloatParameter { value = -0.582f };
 }
 
-public sealed class BlurMaskRenderer : PostProcessEffectRenderer<BlurMask>
+public sealed class BoxBlurMaskRenderer : PostProcessEffectRenderer<BoxBlurMask>
 {
     // dummy transform to transform gaze from object to world coords
     Transform transform = GameObject.Find("Dummy Transform").transform;
@@ -135,7 +135,7 @@ public sealed class BlurMaskRenderer : PostProcessEffectRenderer<BlurMask>
         if (!set)
         {
             this.context = context;
-            this.sheet = context.propertySheets.Get(Shader.Find("Impairment/BlurMask"));
+            this.sheet = context.propertySheets.Get(Shader.Find("Impairment/BoxBlurMask"));
             this.sheet.properties.SetTexture("_MaskTexLeftContext", settings.maskLeftContext);
             this.sheet.properties.SetTexture("_MaskTexLeftFocus", settings.maskLeftFocus);
             this.sheet.properties.SetTexture("_MaskTexRightContext", settings.maskRightContext);
