@@ -195,7 +195,7 @@ MonoBehaviour:
   offsetFocusRightY:
     overrideState: 0
     value: -0.582
---- !u!114 &-2867225522241928275
+--- !u!114 &-308291793031250690
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -204,16 +204,62 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9faf2d0dda5451f44b1d46cc208c4864, type: 3}
-  m_Name: BoxBlur
-  m_EditorClassIdentifier: 
-  active: 0
+  m_Script: {fileID: 0}
+  m_Name: ContrastBrightnessMask
+  m_EditorClassIdentifier: Assembly-CSharp::ContrastBrightnessMask
+  active: 1
   enabled:
     overrideState: 1
     value: 1
-  kernelSize:
+  maskLeftContext:
     overrideState: 1
-    value: 50
+    value: {fileID: 0}
+    defaultState: 1
+  maskLeftFocus:
+    overrideState: 1
+    value: {fileID: 0}
+    defaultState: 1
+  maskRightContext:
+    overrideState: 1
+    value: {fileID: 0}
+    defaultState: 1
+  maskRightFocus:
+    overrideState: 1
+    value: {fileID: 0}
+    defaultState: 1
+  contrastMultiplier:
+    overrideState: 0
+    value: 1
+  brightnessModifier:
+    overrideState: 0
+    value: 0
+  gazeDirectionStraight: {x: 0, y: 0, z: 1}
+  eyeLeft: -1
+  eyeRight: 1
+  screenContext: -1
+  aspectContext: 0.9
+  scaleFactorContext: 1
+  offsetContextLeftX: 0
+  offsetContextRightX: 0
+  offsetContextLeftY: 0
+  offsetContextRightY: 0
+  screenFocus: 1
+  aspectFocus: 1.77
+  scaleFactorFocus:
+    overrideState: 0
+    value: 6.093
+  offsetFocusLeftX:
+    overrideState: 0
+    value: 0.354
+  offsetFocusRightX:
+    overrideState: 0
+    value: -0.645
+  offsetFocusLeftY:
+    overrideState: 0
+    value: 0.418
+  offsetFocusRightY:
+    overrideState: 0
+    value: -0.582
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,8 +274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settings:
   - {fileID: 5752061604874162367}
-  - {fileID: -2867225522241928275}
-  - {fileID: -4191105593430482053}
+  - {fileID: -308291793031250690}
 --- !u!114 &1483358965999606510
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -262,6 +307,15 @@ MonoBehaviour:
     overrideState: 0
     value: {fileID: 0}
     defaultState: 1
+  kernelSize1:
+    overrideState: 0
+    value: 5
+  kernelSize2:
+    overrideState: 0
+    value: 50
+  kernelSize3:
+    overrideState: 0
+    value: 100
   gazeDirectionStraight: {x: 0, y: 0, z: 1}
   eyeLeft: -1
   eyeRight: 1
@@ -321,6 +375,15 @@ MonoBehaviour:
     overrideState: 1
     value: {fileID: 2800000, guid: 7716fc29474c388418dd9afff85efb34, type: 3}
     defaultState: 1
+  kernelSize1:
+    overrideState: 1
+    value: 5
+  kernelSize2:
+    overrideState: 1
+    value: 50
+  kernelSize3:
+    overrideState: 1
+    value: 100
   gazeDirectionStraight: {x: 0, y: 0, z: 1}
   eyeLeft: -1
   eyeRight: 1

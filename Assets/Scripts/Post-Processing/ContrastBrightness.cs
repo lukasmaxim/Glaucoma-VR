@@ -16,7 +16,7 @@ public sealed class ContrastBrightnessMask : PostProcessEffectSettings
     
     // mask settings
     [Range(0.5f, 10.0f)]
-    public FloatParameter contrastMultiplier = new FloatParameter { value = 1.0f };
+    public FloatParameter contrastMultiplier = new FloatParameter { value = 0.5f };
     [Range(-1.0f, 1.0f)]
     public FloatParameter brightnessModifier = new FloatParameter { value = 0.0f };
 
