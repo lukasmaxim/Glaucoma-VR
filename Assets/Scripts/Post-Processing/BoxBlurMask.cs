@@ -14,6 +14,13 @@ public sealed class BoxBlurMask : PostProcessEffectSettings
     public TextureParameter maskRightContext = new TextureParameter { value = null };
     public TextureParameter maskRightFocus = new TextureParameter { value = null };
 
+    [Range(1, 10)]
+    public IntParameter kernelSize1 = new IntParameter { value = 5 };
+    [Range(25, 75)]
+    public IntParameter kernelSize2 = new IntParameter { value = 50 };
+    [Range(75, 125)]
+    public IntParameter kernelSize3 = new IntParameter { value = 100 };
+
     // default gaze direction (straight from cam)
     public Vector3 gazeDirectionStraight = new Vector3(0.0f, 0.0f, 1.0f);
 
@@ -115,6 +122,9 @@ public sealed class BoxBlurMaskRenderer : PostProcessEffectRenderer<BoxBlurMask>
             sheet.properties.SetFloat("scaleFactor", scaleFactor);
             sheet.properties.SetFloat("aspect", aspect);
             sheet.properties.SetVector("offset", offset);
+            sheet.properties.SetInt("_KernelSize1", settings.kernelSize1);
+            sheet.properties.SetInt("_KernelSize2", settings.kernelSize2);
+            sheet.properties.SetInt("_KernelSize3", settings.kernelSize3);
         }
         else
         {
@@ -124,6 +134,9 @@ public sealed class BoxBlurMaskRenderer : PostProcessEffectRenderer<BoxBlurMask>
             sheet.properties.SetFloat("aspect", aspect);
             sheet.properties.SetVector("offset", offset);
             sheet.properties.SetInt("screen", screen);
+            sheet.properties.SetInt("_KernelSize1", settings.kernelSize1);
+            sheet.properties.SetInt("_KernelSize2", settings.kernelSize2);
+            sheet.properties.SetInt("_KernelSize3", settings.kernelSize3);
         }
         context.command.BlitFullscreenTriangle(context.source, context.destination, sheet, 0);
     }
@@ -140,6 +153,9 @@ public sealed class BoxBlurMaskRenderer : PostProcessEffectRenderer<BoxBlurMask>
             this.sheet.properties.SetTexture("_MaskTexLeftFocus", settings.maskLeftFocus);
             this.sheet.properties.SetTexture("_MaskTexRightContext", settings.maskRightContext);
             this.sheet.properties.SetTexture("_MaskTexRightFocus", settings.maskRightFocus);
+            this.sheet.properties.SetInt("_KernelSize1", settings.kernelSize1);
+            this.sheet.properties.SetInt("_KernelSize2", settings.kernelSize2);
+            this.sheet.properties.SetInt("_KernelSize3", settings.kernelSize3);
             set = true;
         }
     }

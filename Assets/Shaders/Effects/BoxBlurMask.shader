@@ -75,67 +75,59 @@ Shader "Impairment/BoxBlurMask"{
         }
 
         // box blur with samples
-        // _KernelSize = clamp(round(maskAlpha* 50), 2, 50);
-
-        // half3 sum = half3(0.0, 0.0, 0.0);
-
-        // int upper = ((_KernelSize - 1) / 2);
-        // int lower = -upper;
-
-
-        // for (int x = lower; x <= upper; x+=samplefacter)
-        // {
-        //     for (int y = lower; y <= upper; y+=samplefacter)
-        //     {
-        //         float2 offsetBlur = float2(_MainTex_TexelSize.x * x, _MainTex_TexelSize.y * y);
-        //         sum += SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.texcoord + offsetBlur);
-        //     }
-        // }
-
-        _KernelSize1 = 5;
-        _KernelSize2 = 15;
-        _KernelSize3 = 30;
+        // _KernelSize1 = 5;
+        // _KernelSize2 = 50;
+        // _KernelSize3 = 100;
 
         half3 sum1 = half3(0.0, 0.0, 0.0);
         int upper1 = ((_KernelSize1 - 1) / 2);
         int lower1 = -upper1;
 
-        for (int x = lower1; x <= upper1; ++x)
+        int samples1 = _KernelSize1/5;
+        int sampleStep1 = _KernelSize1 / samples1;
+
+        for (int x = lower1; x <= upper1; x+= sampleStep1)
         {
-            for (int y = lower1; y <= upper1; ++y)
+            for (int y = lower1; y <= upper1; y+=sampleStep1)
             {
                 float2 offsetBlur1 = float2(_MainTex_TexelSize.x * x, _MainTex_TexelSize.y * y);
-                sum1 += SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.texcoord + offsetBlur1);
+                sum1 += SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.texcoord + offsetBlur1) * sampleStep1 *sampleStep1;
             }
         }
-
         sum1 /= (_KernelSize1 * _KernelSize1);
 
         half3 sum2 = half3(0.0, 0.0, 0.0);
         int upper2 = ((_KernelSize2 - 1) / 2);
         int lower2 = -upper2;
 
-        for (int x = lower2; x <= upper2; ++x)
+        int samples2 = _KernelSize2/5;
+        int sampleStep2 = _KernelSize2 / samples2;
+
+        for (int x = lower2+1; x <= upper2; x += sampleStep2)
         {
-            for (int y = lower2; y <= upper2; ++y)
+            for (int y = lower2+1; y <= upper2; y += sampleStep2)
             {
                 float2 offsetBlur2 = float2(_MainTex_TexelSize.x * x, _MainTex_TexelSize.y * y);
-                sum2 += SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.texcoord + offsetBlur2);
+                sum2 += SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.texcoord + offsetBlur2) * sampleStep2 * sampleStep2;
             }
         }
 
+        
         sum2 /= (_KernelSize2 * _KernelSize2);
 
         half3 sum3 = half3(0.0, 0.0, 0.0);
         int upper3 = ((_KernelSize3 - 1) / 2);
         int lower3 = -upper3;
 
-        for (int x = lower3; x <= upper3; ++x)
+        int samples3 = _KernelSize3/5;
+        int sampleStep3 = _KernelSize3 / samples3;
+
+        for (int x = lower3+1; x <= upper3; x += sampleStep3)
         {
-            for (int y = lower3; y <= upper3; ++y)
+            for (int y = lower3+1; y <= upper3; y += sampleStep3)
             {
                 float2 offsetBlur3 = float2(_MainTex_TexelSize.x * x, _MainTex_TexelSize.y * y);
-                sum3 += SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.texcoord + offsetBlur3);
+                sum3 += SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.texcoord + offsetBlur3) * sampleStep3 * sampleStep3;
             }
         }
 
@@ -150,22 +142,6 @@ Shader "Impairment/BoxBlurMask"{
         else {
             return lerp(float4(sum2,1), float4(sum3,1), (maskAlpha - 0.66) / 0.33);
         }
-            
-
-
-        /*
-        int phi = PI * maskAlpha;
-        int x1 = clamp(sin(phi), 0, 1);
-        int x2 = clamp(sin(phi-(PI/4)), 0, 1);
-        int x3 = clamp(sin(phi-(PI/2)), 0, 1);
-
-        x1 = 0.2f;
-
-        float xtot = x1 + x2 + x3 + 0.00000001f;
-
-
-        return (float4(sum1, 1)*(x1/xtot)) + (float4(sum2, 1) * (x2/xtot)) + (float4(sum3, 1) * (x3/xtot));
-        */
     }
 
     ENDHLSL
