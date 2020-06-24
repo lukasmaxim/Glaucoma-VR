@@ -370,3 +370,4 @@ $RECYCLE.BIN/
 ### Lukas' stuff ###
 # Exlude videos
 /Assets/Videos/
+/Assets/Plugins/*

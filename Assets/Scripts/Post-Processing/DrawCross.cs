@@ -40,7 +40,7 @@ public sealed class DrawCrossRenderer : PostProcessEffectRenderer<DrawCross>
 
     void setOffset(PostProcessRenderContext context, Tuple<float, float> offset)
     {
-        var sheet = context.propertySheets.Get(Shader.Find("Custom/DrawCross"));
+        var sheet = context.propertySheets.Get(Shader.Find("Debug/DrawCross"));
         sheet.properties.SetFloat("offsetContextX", offset.Item1);
         sheet.properties.SetFloat("offsetContextY", offset.Item2);
         context.command.BlitFullscreenTriangle(context.source, context.destination, sheet, 0);

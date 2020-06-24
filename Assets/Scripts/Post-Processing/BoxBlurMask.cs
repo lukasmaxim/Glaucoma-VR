@@ -14,11 +14,11 @@ public sealed class BoxBlurMask : PostProcessEffectSettings
     public TextureParameter maskRightContext = new TextureParameter { value = null };
     public TextureParameter maskRightFocus = new TextureParameter { value = null };
 
-    [Range(1, 10)]
+    [Range(5, 10)]
     public IntParameter kernelSize1 = new IntParameter { value = 5 };
-    [Range(25, 75)]
+    [Range(15, 75)]
     public IntParameter kernelSize2 = new IntParameter { value = 50 };
-    [Range(75, 125)]
+    [Range(50, 125)]
     public IntParameter kernelSize3 = new IntParameter { value = 100 };
 
     // default gaze direction (straight from cam)
