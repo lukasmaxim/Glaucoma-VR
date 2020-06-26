@@ -47,12 +47,11 @@ public class GlobalSettings : MonoBehaviour
     public FloatParameter offsetFocusLeftY = new FloatParameter { value = 0.418f };
     [Range(-0.6f, -0.5f)]
     public FloatParameter offsetFocusRightY = new FloatParameter { value = -0.582f };
-
-
-
-    
     
     // default gaze direction (straight from cam)
     public Vector3 gazeDirectionStraight = new Vector3(0.0f, 0.0f, 1.0f);
 
+    public Color overlayColor = Color.yellow;
+    [Range(0.0f, 1.0f)]
+    public float alphaCutoff = 0.4f;
 }

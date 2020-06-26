@@ -10,12 +10,15 @@ public abstract class MaskRenderer : PostProcessEffectRenderer<MaskSettings>
 {
     // dummy transform to transform gaze from object to world coords
     Transform transform = GameObject.Find("Dummy Transform").transform;
-    Vector3 gazeOriginLeft, gazeDirectionLeft, gazeOriginRight, gazeDirectionRight, gazeDirectionStraight;
+    Vector3 gazeOriginLeft, gazeDirectionLeft, gazeOriginRight, gazeDirectionRight, gazeDirectionStraight, gazeVector;
     bool leftInvalid, rightInvalid, setup = false;
-    Vector2 offsetContextLeft, offsetContextRight, offsetFocusLeft, offsetFocusRight;
+    Vector2 offsetContextLeft, offsetContextRight, offsetFocusLeft, offsetFocusRight, offset;
     public PostProcessRenderContext context;
     public PropertySheet sheet;
     public GlobalSettings globalSettings;
+    int eye, screen;
+    bool invalid;
+    float scaleFactor, aspect;
 
     public override void Render(PostProcessRenderContext context)
     {
@@ -76,46 +79,65 @@ public abstract class MaskRenderer : PostProcessEffectRenderer<MaskSettings>
         switch (context.camera.name)
         {
             case "Varjo Left Context":
-                SetPropertiesForCamera(sheet, globalSettings.eyeLeft, leftInvalid, gazeOriginLeft, gazeDirectionLeft, globalSettings.aspectContext, globalSettings.scaleFactorContext, offsetContextLeft, globalSettings.screenContext);
+                eye = globalSettings.eyeLeft;
+                screen = globalSettings.screenContext;
+                invalid = leftInvalid;
+                gazeVector = !invalid ? gazeOriginLeft + gazeDirectionLeft : gazeDirectionStraight;
+                scaleFactor = globalSettings.scaleFactorContext;
+                aspect = globalSettings.aspectContext;
+                offset = offsetContextLeft;
+                SetPropertiesForCamera();
                 break;
             case "Varjo Left Focus":
-                SetPropertiesForCamera(sheet, globalSettings.eyeLeft, leftInvalid, gazeOriginLeft, gazeDirectionLeft, globalSettings.aspectFocus, globalSettings.scaleFactorFocus, offsetFocusLeft, globalSettings.screenFocus);
+                eye = globalSettings.eyeLeft;
+                screen = globalSettings.screenFocus;
+                invalid = leftInvalid;
+                gazeVector = !invalid ? gazeOriginLeft + gazeDirectionLeft : gazeDirectionStraight;
+                scaleFactor = globalSettings.scaleFactorFocus;
+                aspect = globalSettings.aspectFocus;
+                offset = offsetContextLeft;
+                SetPropertiesForCamera();
                 break;
             case "Varjo Right Context":
-                SetPropertiesForCamera(sheet, globalSettings.eyeRight, rightInvalid, gazeOriginRight, gazeDirectionRight, globalSettings.aspectContext, globalSettings.scaleFactorContext, offsetContextRight, globalSettings.screenContext);
+                eye = globalSettings.eyeRight;
+                screen = globalSettings.screenContext;
+                invalid = rightInvalid;
+                gazeVector = !invalid ? gazeOriginLeft + gazeDirectionLeft : gazeDirectionStraight;
+                scaleFactor = globalSettings.scaleFactorContext;
+                aspect = globalSettings.aspectContext;
+                offset = offsetContextRight;
+                SetPropertiesForCamera();
                 break;
             case "Varjo Right Focus":
-                SetPropertiesForCamera(sheet, globalSettings.eyeRight, rightInvalid, gazeOriginRight, gazeDirectionRight, globalSettings.aspectFocus, globalSettings.scaleFactorFocus, offsetFocusRight, globalSettings.screenFocus);
+                eye = globalSettings.eyeRight;
+                screen = globalSettings.screenFocus;
+                invalid = rightInvalid;
+                gazeVector = !invalid ? gazeOriginLeft + gazeDirectionLeft : gazeDirectionStraight;
+                scaleFactor = globalSettings.scaleFactorFocus;
+                aspect = globalSettings.aspectFocus;
+                offset = offsetContextRight;
+                SetPropertiesForCamera();
                 break;
         }
     }
 
     // set shader properties for specific camera
-    void SetPropertiesForCamera(PropertySheet sheet, int eye, bool invalid, Vector3 gazeOrigin, Vector3 gazeDirection, float aspect, float scaleFactor, Vector2 offset, int screen)
+    void SetPropertiesForCamera()
     {
-        SetCommonProperties(sheet, eye, invalid, gazeOrigin, gazeDirection, aspect, scaleFactor, offset, screen);
+        SetCommonProperties();
         SetEffectProperties();
         Blit();
     }
 
     // set per frame common shader properties
-    void SetCommonProperties(PropertySheet sheet, int eye, bool invalid, Vector3 gazeOrigin, Vector3 gazeDirection, float aspect, float scaleFactor, Vector2 offset, int screen)
+    void SetCommonProperties()
     {
         sheet.properties.SetInt("eye", eye);
         sheet.properties.SetInt("screen", screen);
         sheet.properties.SetFloat("scaleFactor", scaleFactor);
         sheet.properties.SetFloat("aspect", aspect);
         sheet.properties.SetVector("offset", offset);
-
-        // check if gaze data is valid
-        if (!invalid)
-        {
-            sheet.properties.SetVector("gaze", gazeOrigin + gazeDirection);
-        }
-        else
-        {
-            sheet.properties.SetVector("gaze", gazeDirectionStraight);
-        }
+        sheet.properties.SetVector("gaze", gazeVector);
     }
 
     // sets effect shader properties for a frame
