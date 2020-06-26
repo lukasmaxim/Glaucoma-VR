@@ -12,8 +12,6 @@ public sealed class TestShader : PostProcessEffectSettings
 
 public sealed class TestShaderRenderer : PostProcessEffectRenderer<TestShader>
 {
-
-
     // called at the end of each frame's rendering pipe
     public override void Render(PostProcessRenderContext context)
     {

@@ -6,11 +6,11 @@ using Varjo;
 
 [Serializable]
 [PostProcess(typeof(ContrastBrightnessMaskRenderer), PostProcessEvent.AfterStack, "Impairment/ContrastBrightnessMask")]
-public sealed class ContrastBrightnessMask : MaskSettings
+public sealed class ContrastBrightnessMask : PostProcessMaskSettings
 {
 }
 
-public sealed class ContrastBrightnessMaskRenderer : MaskRenderer
+public sealed class ContrastBrightnessMaskRenderer : PostProcessMaskRenderer
 {
     public override void SetInitialEffectProperties()
     {
@@ -19,7 +19,7 @@ public sealed class ContrastBrightnessMaskRenderer : MaskRenderer
 
     public override void SetEffectProperties()
     {
-        sheet.properties.SetFloat("_ContrastMultiplier", globalSettings.contrastMultiplier);
-        sheet.properties.SetFloat("_BrightnessModifier", globalSettings.brightnessModifier);
+        sheet.properties.SetFloat("_ContrastMultiplier", maskSettings.contrastMultiplier);
+        sheet.properties.SetFloat("_BrightnessModifier", maskSettings.brightnessModifier);
     }
 }

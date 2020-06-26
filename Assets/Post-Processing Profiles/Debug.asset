@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-5051942291097641262
+--- !u!114 &-8660277277274012321
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,63 +9,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b8a6263f6ce3444096fd1d78aa3b70f, type: 3}
-  m_Name: DrawCross
-  m_EditorClassIdentifier: 
-  active: 0
-  enabled:
-    overrideState: 1
-    value: 1
-  offsetLeftX:
-    overrideState: 0
-    value: 0.0925
-  offsetRightX:
-    overrideState: 0
-    value: 0.0865
-  offsetY:
-    overrideState: 0
-    value: 0
---- !u!114 &-2468088790511691808
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 579dcf673caafe14ea2f707466a40207, type: 3}
+  m_Script: {fileID: 11500000, guid: ba79dd3df26da7545974dd42c068d17f, type: 3}
   m_Name: MoveTexture
   m_EditorClassIdentifier: 
   active: 1
   enabled:
     overrideState: 1
     value: 1
-  gazeDirectionStraight: {x: 0, y: 0, z: 1}
-  screenContext: -1
-  aspectContext: 0.9
-  scaleFactorContext: 1
-  offsetContextLeftX: 0
-  offsetContextRightX: 0
-  offsetContextLeftY: 0
-  offsetContextRightY: 0
-  screenFocus: 1
-  aspectFocus: 1.77
-  scaleFactorFocus:
-    overrideState: 0
-    value: 6.093
-  offsetFocusLeftX:
-    overrideState: 0
-    value: 0.354
-  offsetFocusRightX:
-    overrideState: 0
-    value: -0.645
-  offsetFocusLeftY:
-    overrideState: 0
-    value: 0.418
-  offsetFocusRightY:
-    overrideState: 0
-    value: -0.582
+--- !u!114 &-6303161423428578489
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94791acf838bc644c8faa9bd71e5dcdd, type: 3}
+  m_Name: MaskCoverage
+  m_EditorClassIdentifier: 
+  active: 0
+  enabled:
+    overrideState: 1
+    value: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,5 +45,39 @@ MonoBehaviour:
   m_Name: Debug
   m_EditorClassIdentifier: 
   settings:
-  - {fileID: -5051942291097641262}
-  - {fileID: -2468088790511691808}
+  - {fileID: -8660277277274012321}
+  - {fileID: 7289257067845159850}
+  - {fileID: -6303161423428578489}
+  - {fileID: 4651429362388606345}
+--- !u!114 &4651429362388606345
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91fef955be40e0446a299e14a59938c2, type: 3}
+  m_Name: FollowGaze
+  m_EditorClassIdentifier: 
+  active: 0
+  enabled:
+    overrideState: 1
+    value: 1
+--- !u!114 &7289257067845159850
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30881ef893aa7dd4d926342b931a26f5, type: 3}
+  m_Name: DrawCross
+  m_EditorClassIdentifier: 
+  active: 0
+  enabled:
+    overrideState: 1
+    value: 1

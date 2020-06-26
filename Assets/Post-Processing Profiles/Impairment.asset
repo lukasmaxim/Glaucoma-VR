@@ -1,5 +1,46 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7586917497266715432
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b8a6263f6ce3444096fd1d78aa3b70f, type: 3}
+  m_Name: DrawCross
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  offsetLeftX:
+    overrideState: 0
+    value: 0.0925
+  offsetRightX:
+    overrideState: 0
+    value: 0.0865
+  offsetY:
+    overrideState: 0
+    value: 0.0034
+--- !u!114 &-7104786184759518361
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1497e9fb87e1ffd4eb6aa4bade273279, type: 3}
+  m_Name: BoxBlurMask
+  m_EditorClassIdentifier: 
+  active: 0
+  enabled:
+    overrideState: 1
+    value: 1
 --- !u!114 &-6303831937453401281
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -12,6 +53,22 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: ContrastBrightnessMask
   m_EditorClassIdentifier: Assembly-CSharp::ContrastBrightnessMask
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+--- !u!114 &-6016364929468221954
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 579dcf673caafe14ea2f707466a40207, type: 3}
+  m_Name: MoveTexture
+  m_EditorClassIdentifier: 
   active: 1
   enabled:
     overrideState: 1
@@ -64,6 +121,22 @@ MonoBehaviour:
   enabled:
     overrideState: 1
     value: 1
+--- !u!114 &-701768368054943229
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30881ef893aa7dd4d926342b931a26f5, type: 3}
+  m_Name: DrawCross
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,9 +150,8 @@ MonoBehaviour:
   m_Name: Impairment
   m_EditorClassIdentifier: 
   settings:
-  - {fileID: 880871669376472363}
-  - {fileID: 7736510908465488188}
-  - {fileID: 7222422745060734954}
+  - {fileID: -7104786184759518361}
+  - {fileID: 6515506468440226121}
 --- !u!114 &880871669376472363
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -92,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 904d517b74ee10b428e4db65f35d0802, type: 3}
   m_Name: BoxBlurMask
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
@@ -128,6 +200,22 @@ MonoBehaviour:
   enabled:
     overrideState: 1
     value: 1
+--- !u!114 &6515506468440226121
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6784c46ecfc05d2478b0e8854a620609, type: 3}
+  m_Name: ContrastBrightnessMask
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
 --- !u!114 &7222422745060734954
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -140,59 +228,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7906a9ecc84e51e489511c93ccaecac1, type: 3}
   m_Name: MaskCoverage
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
-  maskLeftContext:
-    overrideState: 0
-    value: {fileID: 0}
-    defaultState: 1
-  maskLeftFocus:
-    overrideState: 0
-    value: {fileID: 0}
-    defaultState: 1
-  maskRightContext:
-    overrideState: 0
-    value: {fileID: 0}
-    defaultState: 1
-  maskRightFocus:
-    overrideState: 0
-    value: {fileID: 0}
-    defaultState: 1
-  overlayColor:
-    overrideState: 0
-    value: {r: 1, g: 1, b: 0, a: 1}
-  alphaCutoff:
-    overrideState: 0
-    value: 0.2
-  gazeDirectionStraight: {x: 0, y: 0, z: 1}
-  eyeLeft: -1
-  eyeRight: 1
-  screenContext: -1
-  aspectContext: 0.9
-  scaleFactorContext: 1
-  offsetContextLeftX: 0
-  offsetContextRightX: 0
-  offsetContextLeftY: 0
-  offsetContextRightY: 0
-  screenFocus: 1
-  aspectFocus: 1.77
-  scaleFactorFocus:
-    overrideState: 0
-    value: 6.093
-  offsetFocusLeftX:
-    overrideState: 0
-    value: 0.354
-  offsetFocusRightX:
-    overrideState: 0
-    value: -0.645
-  offsetFocusLeftY:
-    overrideState: 0
-    value: 0.418
-  offsetFocusRightY:
-    overrideState: 0
-    value: -0.582
 --- !u!114 &7736510908465488188
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -205,7 +244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1533df5ac58fa404282860f686d8b563, type: 3}
   m_Name: ContrastBrightnessMask
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1

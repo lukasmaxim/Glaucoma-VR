@@ -6,11 +6,11 @@ using Varjo;
 
 [Serializable]
 [PostProcess(typeof(BoxBlurMaskRenderer), PostProcessEvent.AfterStack, "Impairment/BoxBlurMask")]
-public sealed class BoxBlurMask : MaskSettings
+public sealed class BoxBlurMask : PostProcessMaskSettings
 {
 }
 
-public sealed class BoxBlurMaskRenderer : MaskRenderer
+public sealed class BoxBlurMaskRenderer : PostProcessMaskRenderer
 {
     public override void SetInitialEffectProperties()
     {
@@ -19,8 +19,8 @@ public sealed class BoxBlurMaskRenderer : MaskRenderer
 
     public override void SetEffectProperties()
     {
-        sheet.properties.SetInt("_KernelSize1", globalSettings.kernelSize1);
-        sheet.properties.SetInt("_KernelSize2", globalSettings.kernelSize2);
-        sheet.properties.SetInt("_KernelSize3", globalSettings.kernelSize3);
+        sheet.properties.SetInt("_KernelSize1", maskSettings.kernelSize1);
+        sheet.properties.SetInt("_KernelSize2", maskSettings.kernelSize2);
+        sheet.properties.SetInt("_KernelSize3", maskSettings.kernelSize3);
     }
 }

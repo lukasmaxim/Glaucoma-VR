@@ -2,11 +2,11 @@ using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 using Varjo;
 
-public abstract class MaskSettings : PostProcessEffectSettings
+public abstract class PostProcessMaskSettings : PostProcessEffectSettings
 {
 }
 
-public abstract class MaskRenderer : PostProcessEffectRenderer<MaskSettings>
+public abstract class PostProcessMaskRenderer : PostProcessEffectRenderer<PostProcessMaskSettings>
 {
     // dummy transform to transform gaze from object to world coords
     Transform transform = GameObject.Find("Dummy Transform").transform;
@@ -15,11 +15,12 @@ public abstract class MaskRenderer : PostProcessEffectRenderer<MaskSettings>
     Vector2 offsetContextLeft, offsetContextRight, offsetFocusLeft, offsetFocusRight, offset;
     public PostProcessRenderContext context;
     public PropertySheet sheet;
-    public GlobalSettings globalSettings;
+    public MaskSettings maskSettings;
     int eye, screen;
     bool invalid;
     float scaleFactor, aspect;
 
+    // called every frame after done rendering
     public override void Render(PostProcessRenderContext context)
     {
         Setup(context);
@@ -34,12 +35,24 @@ public abstract class MaskRenderer : PostProcessEffectRenderer<MaskSettings>
         if (!setup)
         {
             this.context = context;
-            globalSettings = GameObject.Find("App").GetComponent<GlobalSettings>();
+            maskSettings = GameObject.Find("VarjoCamera").GetComponent<MaskSettings>();
             SetInitialEffectProperties();
             SetInitialCommonProperties();
             setup = true;
         }
     }
+
+    // sets initial common shader properties
+    void SetInitialCommonProperties()
+    {
+        sheet.properties.SetTexture("_MaskTexLeftContext", this.maskSettings.maskLeftContext);
+        sheet.properties.SetTexture("_MaskTexLeftFocus", this.maskSettings.maskLeftFocus);
+        sheet.properties.SetTexture("_MaskTexRightContext", this.maskSettings.maskRightContext);
+        sheet.properties.SetTexture("_MaskTexRightFocus", this.maskSettings.maskRightFocus);
+    }
+
+    // sets initial effect shader properties
+    public abstract void SetInitialEffectProperties();
 
     // gets and sets the data for the current frame (gaze, hmd pose, offset)
     void GetCurrentData()
@@ -54,7 +67,7 @@ public abstract class MaskRenderer : PostProcessEffectRenderer<MaskSettings>
         gazeOriginRight = transform.TransformPoint(Utils.Double3ToVector3(VarjoPlugin.GetGaze().left.position));
         gazeDirectionRight = transform.TransformVector(Utils.Double3ToVector3(VarjoPlugin.GetGaze().left.forward));
         // default
-        gazeDirectionStraight = transform.TransformPoint(globalSettings.gazeDirectionStraight);
+        gazeDirectionStraight = transform.TransformPoint(maskSettings.gazeDirectionStraight);
 
         // === hmd pose ===
         VarjoPlugin.Matrix matrix;
@@ -66,10 +79,10 @@ public abstract class MaskRenderer : PostProcessEffectRenderer<MaskSettings>
         }
 
         // === offset ===
-        offsetFocusLeft = new Vector2(globalSettings.offsetFocusLeftX, globalSettings.offsetFocusLeftY);
-        offsetFocusRight = new Vector2(globalSettings.offsetFocusRightX, globalSettings.offsetFocusRightY);
-        offsetContextLeft = new Vector2(globalSettings.offsetContextLeftX, globalSettings.offsetContextLeftY);
-        offsetContextRight = new Vector2(globalSettings.offsetContextRightX, globalSettings.offsetContextRightY);
+        offsetFocusLeft = new Vector2(maskSettings.offsetFocusLeftX, maskSettings.offsetFocusLeftY);
+        offsetFocusRight = new Vector2(-(1-maskSettings.offsetFocusLeftX), -(1-maskSettings.offsetFocusLeftY));
+        offsetContextLeft = new Vector2(maskSettings.offsetContextLeftX, maskSettings.offsetContextLeftY);
+        offsetContextRight = new Vector2(maskSettings.offsetContextLeftX, maskSettings.offsetContextLeftY);
     }
 
     // sets shader properties for the current frame
@@ -79,49 +92,49 @@ public abstract class MaskRenderer : PostProcessEffectRenderer<MaskSettings>
         switch (context.camera.name)
         {
             case "Varjo Left Context":
-                eye = globalSettings.eyeLeft;
-                screen = globalSettings.screenContext;
+                eye = maskSettings.eyeLeft;
+                screen = maskSettings.screenContext;
                 invalid = leftInvalid;
                 gazeVector = !invalid ? gazeOriginLeft + gazeDirectionLeft : gazeDirectionStraight;
-                scaleFactor = globalSettings.scaleFactorContext;
-                aspect = globalSettings.aspectContext;
+                scaleFactor = maskSettings.scaleFactorContext;
+                aspect = maskSettings.aspectContext;
                 offset = offsetContextLeft;
                 SetPropertiesForCamera();
                 break;
             case "Varjo Left Focus":
-                eye = globalSettings.eyeLeft;
-                screen = globalSettings.screenFocus;
+                eye = maskSettings.eyeLeft;
+                screen = maskSettings.screenFocus;
                 invalid = leftInvalid;
                 gazeVector = !invalid ? gazeOriginLeft + gazeDirectionLeft : gazeDirectionStraight;
-                scaleFactor = globalSettings.scaleFactorFocus;
-                aspect = globalSettings.aspectFocus;
-                offset = offsetContextLeft;
+                scaleFactor = maskSettings.scaleFactorFocus;
+                aspect = maskSettings.aspectFocus;
+                offset = offsetFocusLeft;
                 SetPropertiesForCamera();
                 break;
             case "Varjo Right Context":
-                eye = globalSettings.eyeRight;
-                screen = globalSettings.screenContext;
+                eye = maskSettings.eyeRight;
+                screen = maskSettings.screenContext;
                 invalid = rightInvalid;
                 gazeVector = !invalid ? gazeOriginLeft + gazeDirectionLeft : gazeDirectionStraight;
-                scaleFactor = globalSettings.scaleFactorContext;
-                aspect = globalSettings.aspectContext;
+                scaleFactor = maskSettings.scaleFactorContext;
+                aspect = maskSettings.aspectContext;
                 offset = offsetContextRight;
                 SetPropertiesForCamera();
                 break;
             case "Varjo Right Focus":
-                eye = globalSettings.eyeRight;
-                screen = globalSettings.screenFocus;
+                eye = maskSettings.eyeRight;
+                screen = maskSettings.screenFocus;
                 invalid = rightInvalid;
                 gazeVector = !invalid ? gazeOriginLeft + gazeDirectionLeft : gazeDirectionStraight;
-                scaleFactor = globalSettings.scaleFactorFocus;
-                aspect = globalSettings.aspectFocus;
-                offset = offsetContextRight;
+                scaleFactor = maskSettings.scaleFactorFocus;
+                aspect = maskSettings.aspectFocus;
+                offset = offsetFocusRight;
                 SetPropertiesForCamera();
                 break;
         }
     }
 
-    // set shader properties for specific camera
+    // sets shader properties for specific camera
     void SetPropertiesForCamera()
     {
         SetCommonProperties();
@@ -129,7 +142,7 @@ public abstract class MaskRenderer : PostProcessEffectRenderer<MaskSettings>
         Blit();
     }
 
-    // set per frame common shader properties
+    // sets per frame common shader properties
     void SetCommonProperties()
     {
         sheet.properties.SetInt("eye", eye);
@@ -148,15 +161,4 @@ public abstract class MaskRenderer : PostProcessEffectRenderer<MaskSettings>
     {
         context.command.BlitFullscreenTriangle(context.source, context.destination, sheet, 0);
     }
-
-    // set initial common shader properties
-    void SetInitialCommonProperties()
-    {
-        sheet.properties.SetTexture("_MaskTexLeftContext", this.globalSettings.maskLeftContext);
-        sheet.properties.SetTexture("_MaskTexLeftFocus", this.globalSettings.maskLeftFocus);
-        sheet.properties.SetTexture("_MaskTexRightContext", this.globalSettings.maskRightContext);
-        sheet.properties.SetTexture("_MaskTexRightFocus", this.globalSettings.maskRightFocus);
-    }
-
-    public abstract void SetInitialEffectProperties();
 }

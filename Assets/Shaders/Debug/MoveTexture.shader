@@ -4,7 +4,6 @@ Shader "Debug/MoveTexture"{
 	{
 		_MaskTexContext ("Mask Texture Context", 2D) = "white" {}
 		_MaskTexFocus ("Mask Texture Focus", 2D) = "white" {}
-        _MaskColor ("Mask Color", Color) = (0,1,1,1)
 	}
 
     HLSLINCLUDE
@@ -14,7 +13,6 @@ Shader "Debug/MoveTexture"{
     TEXTURE2D_SAMPLER2D(_MainTex, sampler_MainTex);
     TEXTURE2D_SAMPLER2D(_MaskTexContext, sampler_MaskTexContext);
     TEXTURE2D_SAMPLER2D(_MaskTexFocus, sampler_MaskTexFocus);
-	float4 _MaskColor;
     float4 maskColor;
 
     int screen;
