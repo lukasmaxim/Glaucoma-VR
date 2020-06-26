@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 14f34530b3886490b82a5d59bb9bf370, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -536,7 +536,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bicubicShader: {fileID: 7200000, guid: f78cee838f12a7540a806862a961788c, type: 3}
   testShader: {fileID: 0}
-  texture: {fileID: 2800000, guid: 867074e4e5275a847880bbd56a82e315, type: 3}
+  texture: {fileID: 2800000, guid: ca83d5eb2956aee4e9773b061b826d27, type: 3}
 --- !u!4 &374331157
 Transform:
   m_ObjectHideFlags: 0
@@ -1436,12 +1436,12 @@ MonoBehaviour:
       PublicKeyToken=null
   - assemblyQualifiedName: TestShader, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  - assemblyQualifiedName: ContrastBrightnessMask, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   - assemblyQualifiedName: BoxBlur, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   - assemblyQualifiedName: BoxBlurMask, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  - assemblyQualifiedName: ContrastBrightnessMask, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!20 &807787054
 Camera:
   m_ObjectHideFlags: 0
@@ -2106,7 +2106,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!328 &1205249846
 VideoPlayer:
   m_ObjectHideFlags: 0
@@ -2888,12 +2888,12 @@ MonoBehaviour:
       PublicKeyToken=null
   - assemblyQualifiedName: TestShader, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  - assemblyQualifiedName: ContrastBrightnessMask, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   - assemblyQualifiedName: BoxBlur, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   - assemblyQualifiedName: BoxBlurMask, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  - assemblyQualifiedName: ContrastBrightnessMask, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &1716010260
 GameObject:
   m_ObjectHideFlags: 0
@@ -3381,12 +3381,12 @@ MonoBehaviour:
       PublicKeyToken=null
   - assemblyQualifiedName: TestShader, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  - assemblyQualifiedName: ContrastBrightnessMask, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   - assemblyQualifiedName: BoxBlur, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   - assemblyQualifiedName: BoxBlurMask, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  - assemblyQualifiedName: ContrastBrightnessMask, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &1939730292
 GameObject:
   m_ObjectHideFlags: 0
@@ -3460,7 +3460,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 11400000, guid: 09963088ece426c458c0ededb54140b8, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 41278a4cae763364badd880de9bdf24e, type: 2}
   isGlobal: 1
   blendDistance: 0
   weight: 1
@@ -3476,6 +3476,7 @@ GameObject:
   - component: {fileID: 2005682073}
   - component: {fileID: 2005682072}
   - component: {fileID: 2005682074}
+  - component: {fileID: 2005682075}
   m_Layer: 0
   m_Name: App
   m_TagString: Untagged
@@ -3531,6 +3532,56 @@ MonoBehaviour:
   masksReadyEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2005682075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005682071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ad784ccaece0e547baac488d2a70223, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maskLeftContext: {fileID: 2800000, guid: f86e0d72940902e48bc29382a772916d, type: 3}
+  maskLeftFocus: {fileID: 2800000, guid: d841c586d477ecd44b73e0ad6c89b18a, type: 3}
+  maskRightContext: {fileID: 2800000, guid: 867074e4e5275a847880bbd56a82e315, type: 3}
+  maskRightFocus: {fileID: 2800000, guid: 7716fc29474c388418dd9afff85efb34, type: 3}
+  contrastMultiplier:
+    overrideState: 0
+    value: 0.5
+  brightnessModifier:
+    overrideState: 0
+    value: 0
+  kernelSize1: 5
+  kernelSize2: 50
+  kernelSize3: 100
+  eyeLeft: -1
+  eyeRight: 1
+  screenContext: -1
+  aspectContext: 0.9
+  scaleFactorContext: 1
+  offsetContextLeftX: 0
+  offsetContextRightX: 0
+  offsetContextLeftY: 0
+  offsetContextRightY: 0
+  screenFocus: 1
+  aspectFocus: 1.77
+  scaleFactorFocus: 6.093
+  offsetFocusLeftX:
+    overrideState: 0
+    value: 0.354
+  offsetFocusRightX:
+    overrideState: 0
+    value: -0.645
+  offsetFocusLeftY:
+    overrideState: 0
+    value: 0.418
+  offsetFocusRightY:
+    overrideState: 0
+    value: -0.582
+  gazeDirectionStraight: {x: 0, y: 0, z: 1}
 --- !u!1 &2013502288
 GameObject:
   m_ObjectHideFlags: 0
@@ -4329,12 +4380,12 @@ MonoBehaviour:
       PublicKeyToken=null
   - assemblyQualifiedName: TestShader, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  - assemblyQualifiedName: ContrastBrightnessMask, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
   - assemblyQualifiedName: BoxBlur, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   - assemblyQualifiedName: BoxBlurMask, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  - assemblyQualifiedName: ContrastBrightnessMask, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &2137373086
 GameObject:
   m_ObjectHideFlags: 0

@@ -34,7 +34,7 @@ public class TextureScaler : MonoBehaviour
 
         bicubicShader.SetTexture(kernelHandle, "Result", rTex);
         bicubicShader.SetTexture(kernelHandle, "InputTexture", texture);
-        bicubicShader.Dispatch(kernelHandle, 2048/8, 1024/8, 1);
+        bicubicShader.Dispatch(kernelHandle, 1024, 1024, 32);
 
         Save(rTex);
     }
@@ -47,7 +47,7 @@ public class TextureScaler : MonoBehaviour
         rTex.Create();
 
         testShader.SetTexture(kernelHandle, "Result", rTex);
-        testShader.Dispatch(kernelHandle, 256/8, 256/8, 1);
+        testShader.Dispatch(kernelHandle, 1024/8, 256/8, 1);
 
         Save(rTex);
     }

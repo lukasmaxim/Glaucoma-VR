@@ -1,17 +1,22 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
 using Varjo;
 
-public class Utils : MonoBehaviour
+public class Utils
 {
+    // converts varjo vector given by doubles to unity vector3
     public static string Double3ToString(double[] doubles)
     {
         return doubles[0].ToString() + ", " + doubles[1].ToString() + ", " + doubles[2].ToString();
     }
 
-    public static void PrintDebug()
+    // converts varjo vector given by doubles to unity vector3
+    public static Vector3 Double3ToVector3(double[] doubles)
+    {
+        return new Vector3((float)doubles[0], (float)doubles[1], (float)doubles[2]);
+    }
+
+    // prints the current hmd pose
+    public static void PrintHMDPose()
     {
         VarjoManager vm = GameObject.Find("VarjoCameraRig").GetComponent<VarjoManager>();
         Quaternion hmdOrientation = vm.GetHMDOrientation(VarjoPlugin.PoseType.CENTER);
