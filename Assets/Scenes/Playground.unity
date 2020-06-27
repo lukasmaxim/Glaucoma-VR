@@ -3482,9 +3482,7 @@ MonoBehaviour:
   aspectFocus: 1.77
   scaleFactorFocus: 6.093
   offsetFocusLeftX: 0.354
-  offsetFocusRightX: -0.645
   offsetFocusLeftY: 0.418
-  offsetFocusRightY: -0.582
   gazeDirectionStraight: {x: 0, y: 0, z: 1}
   overlayColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   alphaCutoff: 0.4
@@ -3500,7 +3498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 11400000, guid: 41278a4cae763364badd880de9bdf24e, type: 2}
+  sharedProfile: {fileID: 11400000, guid: db83215493fd9a846bed270d71caaee5, type: 2}
   isGlobal: 1
   blendDistance: 0
   weight: 1

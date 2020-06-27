@@ -2,78 +2,18 @@
 	
 	HLSLINCLUDE
 
-	#include "Packages/com.unity.postprocessing/PostProcessing/Shaders/StdLib.hlsl"
+    #include "../Commons.hlsl"
 
-	TEXTURE2D_SAMPLER2D(_MainTex, sampler_MainTex);
-	TEXTURE2D_SAMPLER2D(_MaskTexLeftContext, sampler_MaskTexLeftContext);
-	TEXTURE2D_SAMPLER2D(_MaskTexLeftFocus, sampler_MaskTexLeftFocus);
-	TEXTURE2D_SAMPLER2D(_MaskTexRightContext, sampler_MaskTexRightContext);
-	TEXTURE2D_SAMPLER2D(_MaskTexRightFocus, sampler_MaskTexRightFocus);
 	float4 _OverlayColor;
 	float _AlphaCutoff;
 	float maskAlpha;
 
-	int screen;
-	int eye;
-
-	float2 cutoff;
-
-	float2 offset;
-
-	float3 gaze;
-	float4 gazeProjected;
-	float2 gazeNormalized;
-
-	float scaleFactor;
-	float aspect;
-
-	float distance;
-
-	float circleRadius;
-	float4 circleColor;
-
-	float2 samplePoint;
-
-	// draw a circle where the gaze goes
+	// create binary mask of given mask with alpha cutoff
 	float4 MaskCoverage(VaryingsDefault i) : SV_Target
 	{
-		// gaze is in object coords; first turn into world coords, then use the view projection matrix (VP) to get clip coords;
-		// normally we could do this with MVP, but MVP is no longer :(
-		//
-		// turn object coords into clip coords by multiplying unity_ObjectToWorld (for getting world coords) and unity_MatrixVP (for getting eye coords and then clip coords)
-		// helpful image: http://blog.hvidtfeldts.net/media/opengl.png
-		gazeProjected = mul(mul(unity_ObjectToWorld, unity_MatrixVP), float4(gaze, 1.0f)); // 4th dim has to be 1.0
-		gazeNormalized = (gazeProjected.xy / gazeProjected.w) * float2(0.5f, -0.5f); // multiplication and addition is for transforming -1...1 to 0...1 in directx and metal
-
-		float4 originalColor = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.texcoord);
-
-		// TODO maybe exhange with method call
-		if(screen == -1) // context eye
-		{
-			if(eye == -1) // left
-			{
-				samplePoint = float2(i.texcoord.x * 1/scaleFactor + -gazeNormalized.x * 1/scaleFactor + offset.x, i.texcoord.y * 1/scaleFactor  + -gazeNormalized.y * 1/scaleFactor + offset.y);
-				maskAlpha = SAMPLE_TEXTURE2D(_MaskTexLeftContext, sampler_MaskTexLeftContext, samplePoint).a;
-			}
-			else // right
-			{
-				samplePoint = float2(i.texcoord.x * 1/scaleFactor + -gazeNormalized.x * 1/scaleFactor + offset.x, i.texcoord.y * 1/scaleFactor  + -gazeNormalized.y * 1/scaleFactor + offset.y);
-				maskAlpha = SAMPLE_TEXTURE2D(_MaskTexRightContext, sampler_MaskTexRightContext, samplePoint).a;
-			}
-		}
-		else // focus
-		{
-			if(eye == -1) // left
-			{
-				samplePoint = float2(i.texcoord.x * aspect * 1/scaleFactor + -gazeNormalized.x * aspect * 1/scaleFactor + offset.x, i.texcoord.y * 1/scaleFactor  + -gazeNormalized.y * 1/scaleFactor + offset.y);
-				maskAlpha = SAMPLE_TEXTURE2D(_MaskTexLeftFocus, sampler_MaskTexLeftFocus, samplePoint).a;
-			}
-			else // right
-			{
-				samplePoint = float2(i.texcoord.x * aspect * 1/scaleFactor + -gazeNormalized.x * aspect * 1/scaleFactor + offset.x, i.texcoord.y * 1/scaleFactor  + -gazeNormalized.y * 1/scaleFactor + offset.y);
-				maskAlpha = SAMPLE_TEXTURE2D(_MaskTexRightFocus, sampler_MaskTexRightFocus, samplePoint).a;
-			}
-		}
+		originalColor = MainSamplePoint(i);
+        maskColor = MaskGazeSamplePoint(i);
+		maskAlpha = maskColor.a;
 
 		// alpha cutoff so everything above the threshold is clamped to 1, which creates a binary mask
 		if(maskAlpha > _AlphaCutoff)

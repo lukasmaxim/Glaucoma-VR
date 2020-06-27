@@ -20,4 +20,9 @@ public sealed class MoveTextureRenderer : PostProcessMaskRenderer
     public override void SetEffectProperties()
     {
     }
+
+    // special case: override since we don't want the eye textures here
+    public override void SetEyeTextures()
+    {
+    }
 }

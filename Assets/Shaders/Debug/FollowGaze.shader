@@ -2,17 +2,7 @@ Shader "Debug/FollowGaze"{
 
     HLSLINCLUDE
 
-    #include "Packages/com.unity.postprocessing/PostProcessing/Shaders/StdLib.hlsl"
-    
-    TEXTURE2D_SAMPLER2D(_MainTex, sampler_MainTex);
-    float4 _MainTex_TexelSize;
-
-    float3 gaze;
-    float4 gazeProjected;
-    float2 gazeNormalized;
-
-    float scaleFactor;
-    float aspect;
+    #include "../Commons.hlsl"
 
     float distance;
 
@@ -25,13 +15,8 @@ Shader "Debug/FollowGaze"{
         circleRadius = 0.01f * scaleFactor;
         circleColor = float4(1.0f, 0.2f, 0.0f, 0.0f);
 
-        // gaze is in object coords; first turn into world coords, then use the view projection matrix (VP) to get clip coords;
-        // normally we could do this with MVP, but MVP is no longer :(
-        //
-        // turn object coords into clip coords by multiplying unity_ObjectToWorld (for getting world coords) and unity_MatrixVP (for getting eye coords and then clip coords)
-        // helpful image: http://blog.hvidtfeldts.net/media/opengl.png
-        gazeProjected = mul(mul(unity_ObjectToWorld, unity_MatrixVP), float4(gaze, 1.0f)); // 4th dim has to be 1.0
-        gazeNormalized = (gazeProjected.xy / gazeProjected.w) * float2(0.5f, -0.5f) + float2(0.5f, 0.5f); // multiplication and addition is for transforming -1...1 to 0...1 in directx and metal
+        GazeToWorldCoords();
+        gazeNormalized += 0.5f;
 
         // calculate the distance between i and the gaze
         distance = sqrt(pow(gazeNormalized.x * aspect - i.texcoord.x * aspect, 2) + pow(gazeNormalized.y - i.texcoord.y, 2));
@@ -43,7 +28,8 @@ Shader "Debug/FollowGaze"{
         }
         else
         {
-            return SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.texcoord);
+            maskColor = MainSamplePoint(i);
+            return maskColor;
         }
     }
 

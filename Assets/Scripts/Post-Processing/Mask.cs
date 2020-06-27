@@ -45,6 +45,12 @@ public abstract class PostProcessMaskRenderer : PostProcessEffectRenderer<PostPr
     // sets initial common shader properties
     void SetInitialCommonProperties()
     {
+        SetEyeTextures();
+    }
+
+    // sets 4 eye textures
+    public virtual void SetEyeTextures()
+    {
         sheet.properties.SetTexture("_MaskTexLeftContext", this.maskSettings.maskLeftContext);
         sheet.properties.SetTexture("_MaskTexLeftFocus", this.maskSettings.maskLeftFocus);
         sheet.properties.SetTexture("_MaskTexRightContext", this.maskSettings.maskRightContext);
