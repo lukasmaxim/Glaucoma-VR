@@ -73,6 +73,22 @@ MonoBehaviour:
   enabled:
     overrideState: 1
     value: 1
+--- !u!114 &-5202030985717298367
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1497e9fb87e1ffd4eb6aa4bade273279, type: 3}
+  m_Name: BoxBlurMask
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
 --- !u!114 &-4380009574325936792
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -150,8 +166,7 @@ MonoBehaviour:
   m_Name: Impairment
   m_EditorClassIdentifier: 
   settings:
-  - {fileID: -7104786184759518361}
-  - {fileID: 6515506468440226121}
+  - {fileID: -5202030985717298367}
 --- !u!114 &880871669376472363
 MonoBehaviour:
   m_ObjectHideFlags: 3

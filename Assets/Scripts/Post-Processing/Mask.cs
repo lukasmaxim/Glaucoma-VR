@@ -35,7 +35,7 @@ public abstract class PostProcessMaskRenderer : PostProcessEffectRenderer<PostPr
         if (!setup)
         {
             this.context = context;
-            maskSettings = GameObject.Find("VarjoCamera").GetComponent<MaskSettings>();
+            maskSettings = GameObject.Find("App").GetComponent<MaskSettings>();
             SetInitialEffectProperties();
             SetInitialCommonProperties();
             setup = true;
